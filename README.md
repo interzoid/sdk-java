@@ -74,7 +74,7 @@ pass it to the API Builder classes. Otherwise, the SDK will create a default OkH
 
 ```java
 import com.interzoid.sdk.api.FullNameMatchKeyApi;
-import okhttp3.OkHttpClient;
+import okhttp3.*;
 
 public class Main {
     public static void main(String[] args) {
