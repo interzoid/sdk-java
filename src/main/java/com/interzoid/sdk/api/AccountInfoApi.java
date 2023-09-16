@@ -60,7 +60,7 @@ public class AccountInfoApi {
         }
 
         Moshi moshi = new Moshi.Builder().build();
-        JsonAdapter<MatchKeyResponse> jsonAdapter = moshi.adapter(MatchKeyResponse.class);
+        JsonAdapter<InterzoidResponse> jsonAdapter = moshi.adapter(InterzoidResponse.class);
 
         try {
             String response = interzoidApi.doGetRequest(request.getApikey(), RESOURCE, null);
