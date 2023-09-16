@@ -7,7 +7,7 @@ group 'com.interzoid'
 version '1.0-SNAPSHOT'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_18
+    sourceCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
@@ -35,7 +35,7 @@ publishing {
             from components.java
 
             groupId = 'com.interzoid'
-            artifactId = 'sdk-java'
+            artifactId = 'data-matching-sdk'
             version = '1.0-SNAPSHOT'
         }
     }
