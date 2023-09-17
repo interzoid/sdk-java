@@ -118,9 +118,9 @@ public class Main {
         FullNameMatchKeyApi api = new FullNameMatchKeyApi.Builder().build();
 
         FullNameMatchKeyRequest request =
-                FullNameMatchKeyRequest.create(
-                        "YOUR_API_KEY_HERE",
-                        "John Smith"
+                new FullNameMatchKeyRequest(
+                        "YOUR_API_KEY_HERE",    // api key
+                        "John Smith"            // fullname
                 );
 
         try {
@@ -157,9 +157,9 @@ public class Main {
         CompanyNameMatchKeyApi api = new CompanyNameMatchKeyApi.Builder().build();
 
         CompanyNameMatchKeyRequest request =
-                CompanyNameMatchKeyRequest.create(
-                        "YOUR_API_KEY_HERE",
-                        "IBM",
+                new CompanyNameMatchKeyRequest(
+                        "YOUR_API_KEY_HERE",    // api key
+                        "IBM",                  // company
                         CompanyNameMatchKeyRequest.MatchAlgorithm.WIDE
                 );
 
@@ -197,9 +197,9 @@ public class Main {
         AddressMatchKeyApi api = new AddressMatchKeyApi.Builder().build();
 
         AddressMatchKeyRequest request =
-                AddressMatchKeyRequest.create(
-                        "YOUR_API_KEY_HERE",
-                        "100 Main Street",
+                new AddressMatchKeyRequest(
+                        "YOUR_API_KEY_HERE",    // api key
+                        "100 Main Street",      // address1
                         AddressMatchKeyRequest.MatchAlgorithm.NARROW
                 );
 
@@ -233,10 +233,10 @@ public class Main {
         FullNameMatchScoreApi api = new FullNameMatchScoreApi.Builder().build();
 
         FullNameMatchScoreRequest request =
-                FullNameMatchScoreRequest.create(
-                        "YOUR_API_KEY_HERE",
-                        "John Smith",
-                        "John Smyth"
+                new FullNameMatchScoreRequest(
+                        "YOUR_API_KEY_HERE",    // api key
+                        "John Smith",           // name1
+                        "John Smyth"            // name2
                 );
 
         try {
@@ -263,10 +263,10 @@ public class Main {
         OrganizationMatchScoreApi api = new OrganizationMatchScoreApi.Builder().build();
 
         OrganizationMatchScoreRequest request =
-                OrganizationMatchScoreRequest.create(
-                        "YOUR_API_KEY_HERE",
-                        "IBM",
-                        "IBM Corporation"
+                new OrganizationMatchScoreRequest(
+                        "YOUR_API_KEY_HERE",    // api key
+                        "IBM",                  // org1
+                        "IBM Corporation"       // org2
                 );
 
         try {
