@@ -29,6 +29,12 @@ test {
     useJUnitPlatform()
 }
 
+javadoc {
+    title = "Interzoid Data Matching SDK"
+    source = sourceSets.main.allJava
+}
+
+
 publishing {
     publications {
         mavenJava(MavenPublication) {

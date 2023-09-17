@@ -35,7 +35,7 @@ public class AddressMatchKeyApiTest {
         String jsonResponse = "{\"SimKey\": \"12345\", \"Code\": \"Success\", \"Credits\": \"9999\"}";
         when(interzoidApiMock.doGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
 
-        AddressMatchKeyRequest request = AddressMatchKeyRequest.create(apiKey, address, matchAlgorithm);
+        AddressMatchKeyRequest request = new AddressMatchKeyRequest(apiKey, address, matchAlgorithm);
 
         MatchKeyResponse response = addressMatchKeyApi.doRequest(request);
 
@@ -45,7 +45,7 @@ public class AddressMatchKeyApiTest {
 
     @Test
     public void testFailedValidation_MissingApiKey() {
-        AddressMatchKeyRequest invalidRequest = AddressMatchKeyRequest.create(
+        AddressMatchKeyRequest invalidRequest = new AddressMatchKeyRequest(
                 null,  // Missing API key
                 "1234 Main Street",
                 AddressMatchKeyRequest.MatchAlgorithm.WIDE
@@ -64,7 +64,7 @@ public class AddressMatchKeyApiTest {
 
     @Test
     public void testFailedValidation_MissingAddress() {
-        AddressMatchKeyRequest invalidRequest = AddressMatchKeyRequest.create(
+        AddressMatchKeyRequest invalidRequest = new AddressMatchKeyRequest(
                 "testApiKey",
                 null,  // Missing address
                 AddressMatchKeyRequest.MatchAlgorithm.WIDE
@@ -83,7 +83,7 @@ public class AddressMatchKeyApiTest {
 
     @Test
     public void testFailedValidation_MissingAlgorithm() {
-        AddressMatchKeyRequest invalidRequest = AddressMatchKeyRequest.create(
+        AddressMatchKeyRequest invalidRequest = new AddressMatchKeyRequest(
                 "testApiKey",
                 "1234 Main Street",
                 null  // Missing algorithm

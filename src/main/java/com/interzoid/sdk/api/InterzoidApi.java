@@ -6,9 +6,15 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * InterzoidApi is a wrapper around OkHttp client to make requests to Interzoid APIs
+ * Copyright (C) 2023 Interzoid, Inc
+ * <p>
+ * InterzoidApi is a wrapper around OkHttp client to make requests to Interzoid APIs.
+ * This class is not intended to be used directly. Instead, use the more specific APIs in the com.interzoid.sdk.api package.
+ *
+ * @author Interzoid, Inc
+ * @version 1.0
  */
-public class InterzoidApi {
+public final class InterzoidApi {
     private static final String BASE_URL = "https://api.interzoid.com/";
     private final OkHttpClient client;
 
@@ -16,7 +22,16 @@ public class InterzoidApi {
         this.client = client;
     }
 
-    String doGetRequest(String apiKey, String resource, Map<String, String> params) throws Exception {
+    /**
+     * Makes a GET request to the specified resource with the given parameters.
+     *
+     * @param apiKey   the API key to be used for authentication
+     * @param resource the resource to be requested
+     * @param params   the parameters to be sent with the request
+     * @return String (JSON)
+     * @throws InterzoidApiException if an error occurs while making the request
+     */
+    String doGetRequest(String apiKey, String resource, Map<String, String> params) throws InterzoidApiException {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(BASE_URL + resource).newBuilder();
         if (params != null) {
             for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -49,6 +64,8 @@ public class InterzoidApi {
                     throw new UnexpectedResponseException("Unexpected response code: " + response.code() + ", message: " + errorMsg);
                 }
             }
+        } catch (IOException e) {
+            throw new UnexpectedResponseException("Unexpected response", e);
         }
     }
 }

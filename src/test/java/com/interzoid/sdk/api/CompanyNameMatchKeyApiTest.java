@@ -36,7 +36,7 @@ public class CompanyNameMatchKeyApiTest {
         String jsonResponse = "{\"SimKey\": \"12345\", \"Code\": \"Success\", \"Credits\": \"9999\"}";
         when(interzoidApiMock.doGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
 
-        CompanyNameMatchKeyRequest request = CompanyNameMatchKeyRequest.create(apiKey, company, matchAlgorithm);
+        CompanyNameMatchKeyRequest request = new CompanyNameMatchKeyRequest(apiKey, company, matchAlgorithm);
 
         MatchKeyResponse response = companyNameMatchKeyApi.doRequest(request);
 
@@ -46,7 +46,7 @@ public class CompanyNameMatchKeyApiTest {
 
     @Test
     public void testFailedValidation_MissingApiKey() {
-        CompanyNameMatchKeyRequest invalidRequest = CompanyNameMatchKeyRequest.create(
+        CompanyNameMatchKeyRequest invalidRequest = new CompanyNameMatchKeyRequest(
                 null,  // Missing API key
                 "Apple",
                 CompanyNameMatchKeyRequest.MatchAlgorithm.WIDE
@@ -62,7 +62,7 @@ public class CompanyNameMatchKeyApiTest {
 
     @Test
     public void testFailedValidation_MissingCompany() {
-        CompanyNameMatchKeyRequest invalidRequest = CompanyNameMatchKeyRequest.create(
+        CompanyNameMatchKeyRequest invalidRequest = new CompanyNameMatchKeyRequest(
                 "testApiKey",
                 null,  // Missing company
                 CompanyNameMatchKeyRequest.MatchAlgorithm.WIDE
@@ -78,7 +78,7 @@ public class CompanyNameMatchKeyApiTest {
 
     @Test
     public void testFailedValidation_MissingMatchAlgorithm() {
-        CompanyNameMatchKeyRequest invalidRequest = CompanyNameMatchKeyRequest.create(
+        CompanyNameMatchKeyRequest invalidRequest = new CompanyNameMatchKeyRequest(
                 "testApiKey",
                 "Apple",
                 null  // Missing match algorithm

@@ -3,31 +3,61 @@ package com.interzoid.sdk.model;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * Represents a request for generating an address match key, used for comparing and sorting address data.
+ * This class is used to specify the address, match algorithm, and API key required for the request.
+ */
 public class AddressMatchKeyRequest extends InterzoidRequest {
 
+    /**
+     * The address for which the match key is generated.
+     */
     @NotBlank(message = "Address is required")
     private final String address;
+
+    /**
+     * The match algorithm to use when generating the match key.
+     * Possible values are "wide," "medium," or "narrow."
+     */
     @NotNull(message = "Match algorithm is required")
     private final MatchAlgorithm matchAlgorithm;
 
-    private AddressMatchKeyRequest(String apikey, String address, MatchAlgorithm matchAlgorithm) {
+    /**
+     * Constructs a new AddressMatchKeyRequest with the specified API key, address, and match algorithm.
+     *
+     * @param apikey         The API key required for making the request.
+     * @param address        The address for which the match key is generated.
+     * @param matchAlgorithm The match algorithm to use.
+     */
+    public AddressMatchKeyRequest(String apikey, String address, MatchAlgorithm matchAlgorithm) {
         super(apikey);
         this.address = address;
         this.matchAlgorithm = matchAlgorithm;
     }
 
-    public static AddressMatchKeyRequest create(String apikey, String address, MatchAlgorithm matchAlgorithm) {
-        return new AddressMatchKeyRequest(apikey, address, matchAlgorithm);
-    }
-
+    /**
+     * Gets the address for which the match key is generated.
+     *
+     * @return The address.
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Gets the match algorithm used for generating the match key.
+     *
+     * @return The match algorithm.
+     */
     public MatchAlgorithm getMatchAlgorithm() {
         return matchAlgorithm;
     }
 
+    /**
+     * Generates a string representation of the AddressMatchKeyRequest for debugging purposes.
+     *
+     * @return A string containing the address.
+     */
     @Override
     public String toString() {
         return "AddressMatchKeyRequest{" +
@@ -35,17 +65,42 @@ public class AddressMatchKeyRequest extends InterzoidRequest {
                 '}';
     }
 
+    /**
+     * Enumerates the available match algorithms for generating address match keys.
+     */
     public enum MatchAlgorithm {
+        /**
+         * The "wide" match algorithm considers the primary address only when generating match keys.
+         */
         WIDE("wide"),
+
+        /**
+         * The "medium" match algorithm considers a broader range of address elements when generating match keys.
+         */
         MEDIUM("medium"),
+
+        /**
+         * The "narrow" match algorithm considers unit numbers (suite, apartment, unit, etc.) when generating match keys.
+         * This ensures individual units are identified separately when comparing generated keys.
+         */
         NARROW("narrow");
 
         private final String value;
 
+        /**
+         * Constructs a MatchAlgorithm enum value with the specified string value.
+         *
+         * @param value The string value of the match algorithm.
+         */
         MatchAlgorithm(String value) {
             this.value = value;
         }
 
+        /**
+         * Gets the string value of the match algorithm.
+         *
+         * @return The match algorithm value.
+         */
         public String getValue() {
             return value;
         }

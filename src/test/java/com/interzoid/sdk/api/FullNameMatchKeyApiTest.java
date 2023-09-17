@@ -34,7 +34,7 @@ public class FullNameMatchKeyApiTest {
         String jsonResponse = "{\"SimKey\": \"12345\", \"Code\": \"Success\", \"Credits\": \"9999\"}";
         when(interzoidApiMock.doGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
 
-        FullNameMatchKeyRequest request = FullNameMatchKeyRequest.create(apiKey, fullName);
+        FullNameMatchKeyRequest request = new FullNameMatchKeyRequest(apiKey, fullName);
 
         MatchKeyResponse response = fullNameMatchKeyApi.doRequest(request);
 
@@ -44,7 +44,7 @@ public class FullNameMatchKeyApiTest {
 
     @Test
     public void testFailedValidation_MissingApiKey() {
-        FullNameMatchKeyRequest invalidRequest = FullNameMatchKeyRequest.create(
+        FullNameMatchKeyRequest invalidRequest = new FullNameMatchKeyRequest(
                 null,  // Missing API key
                 "John Doe"
         );
@@ -59,7 +59,7 @@ public class FullNameMatchKeyApiTest {
 
     @Test
     public void testFailedValidation_MissingFullName() {
-        FullNameMatchKeyRequest invalidRequest = FullNameMatchKeyRequest.create(
+        FullNameMatchKeyRequest invalidRequest = new FullNameMatchKeyRequest(
                 "testApiKey",
                 null  // Missing full name
         );

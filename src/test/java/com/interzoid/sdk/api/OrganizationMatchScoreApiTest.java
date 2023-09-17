@@ -35,7 +35,7 @@ public class OrganizationMatchScoreApiTest {
         String jsonResponse = "{\"Score\": \"89\", \"Code\": \"Success\", \"Credits\": \"9999\"}";
         when(interzoidApiMock.doGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
 
-        OrganizationMatchScoreRequest request = OrganizationMatchScoreRequest.create(apiKey, org1, org2);
+        OrganizationMatchScoreRequest request = new OrganizationMatchScoreRequest(apiKey, org1, org2);
 
         MatchScoreResponse response = organizationMatchScoreApi.doRequest(request);
 
@@ -45,7 +45,7 @@ public class OrganizationMatchScoreApiTest {
 
     @Test
     public void testFailedValidation_MissingApiKey() {
-        OrganizationMatchScoreRequest invalidRequest = OrganizationMatchScoreRequest.create(
+        OrganizationMatchScoreRequest invalidRequest = new OrganizationMatchScoreRequest(
                 null,  // Missing API key
                 "Apple",
                 "Apple Inc."
@@ -61,7 +61,7 @@ public class OrganizationMatchScoreApiTest {
 
     @Test
     public void testFailedValidation_MissingOrg1() {
-        OrganizationMatchScoreRequest invalidRequest = OrganizationMatchScoreRequest.create(
+        OrganizationMatchScoreRequest invalidRequest = new OrganizationMatchScoreRequest(
                 "testApiKey",
                 null,  // Missing org1
                 "Apple Inc."
@@ -77,7 +77,7 @@ public class OrganizationMatchScoreApiTest {
 
     @Test
     public void testFailedValidation_MissingOrg2() {
-        OrganizationMatchScoreRequest invalidRequest = OrganizationMatchScoreRequest.create(
+        OrganizationMatchScoreRequest invalidRequest = new OrganizationMatchScoreRequest(
                 "testApiKey",
                 "Apple",
                 null  // Missing org2

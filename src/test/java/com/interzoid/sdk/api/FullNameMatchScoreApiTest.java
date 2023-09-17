@@ -36,7 +36,7 @@ public class FullNameMatchScoreApiTest {
         String jsonResponse = "{\"Score\": \"89\", \"Code\": \"Success\", \"Credits\": \"9999\"}";
         when(interzoidApiMock.doGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
 
-        FullNameMatchScoreRequest request = FullNameMatchScoreRequest.create(apiKey, fullName1, fullName2);
+        FullNameMatchScoreRequest request = new FullNameMatchScoreRequest(apiKey, fullName1, fullName2);
 
         MatchScoreResponse response = fullNameMatchScoreApi.doRequest(request);
 
@@ -46,7 +46,7 @@ public class FullNameMatchScoreApiTest {
 
     @Test
     public void testFailedValidation_MissingApiKey() {
-        FullNameMatchScoreRequest invalidRequest = FullNameMatchScoreRequest.create(
+        FullNameMatchScoreRequest invalidRequest = new FullNameMatchScoreRequest(
                 null,  // Missing API key
                 "John Smith",
                 "John Smyth"
@@ -62,7 +62,7 @@ public class FullNameMatchScoreApiTest {
 
     @Test
     public void testFailedValidation_MissingFullName1() {
-        FullNameMatchScoreRequest invalidRequest = FullNameMatchScoreRequest.create(
+        FullNameMatchScoreRequest invalidRequest = new FullNameMatchScoreRequest(
                 "testApiKey",
                 null,  // Missing full name 1
                 "John Smyth"
@@ -78,7 +78,7 @@ public class FullNameMatchScoreApiTest {
 
     @Test
     public void testFailedValidation_MissingFullName2() {
-        FullNameMatchScoreRequest invalidRequest = FullNameMatchScoreRequest.create(
+        FullNameMatchScoreRequest invalidRequest = new FullNameMatchScoreRequest(
                 "testApiKey",
                 "John Smith",
                 null  // Missing full name 2
