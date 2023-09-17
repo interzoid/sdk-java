@@ -32,8 +32,9 @@ test {
 javadoc {
     title = "Interzoid Data Matching SDK"
     source = sourceSets.main.allJava
+    destinationDir = file("$DEFAULT_BUILD_DIR_NAME/docs/javadoc")
+    options.overview = file("$projectDir/src/main/java/overview.html")
 }
-
 
 publishing {
     publications {
