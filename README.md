@@ -42,12 +42,13 @@ implementation 'com.interzoid:data-matching-sdk:1.0-SNAPSHOT'
 ### Maven
 
 ```xml
-
-<dependency>
-    <groupId>com.interzoid</groupId>
-    <artifactId>data-matching-sdk</artifactId>
-    <version>1.0-SNAPSHOT</version>
-</dependency>
+<dependencies>
+    <dependency>
+        <groupId>com.interzoid</groupId>
+        <artifactId>data-matching-sdk</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </dependency>
+</dependencies>
 ```
 
 ## Usage
