@@ -1,6 +1,7 @@
 package com.interzoid.sdk.api;
 
 import okhttp3.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.Map;
@@ -16,6 +17,7 @@ import java.util.Map;
  */
 public final class InterzoidApi {
     private static final String BASE_URL = "https://api.interzoid.com/";
+    private static final String CONNECT_BASE_URL = "https://connect.interzoid.com/";
     private final OkHttpClient client;
 
     InterzoidApi(OkHttpClient client) {
@@ -40,10 +42,32 @@ public final class InterzoidApi {
         }
         Request request = new Request.Builder()
                 .url(urlBuilder.build())
-                .addHeader("content-type", "application/json")
                 .addHeader("x-api-key", apiKey)
                 .build();
 
+        return get(request);
+    }
+
+    /**
+     * Makes a GET request to the specified resource with the given parameters.
+     *
+     * @param params   the parameters to be sent with the request
+     * @return String (JSON or Plain Text)
+     * @throws InterzoidApiException if an error occurs while making the request
+     */
+    String doCloudConnectRequest(Map<String, String> params) throws InterzoidApiException {
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(CONNECT_BASE_URL).newBuilder();
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            urlBuilder.addQueryParameter(entry.getKey(), entry.getValue());
+        }
+        Request request = new Request.Builder()
+                .url(urlBuilder.build())
+                .build();
+
+        return get(request);
+    }
+
+    private String get(Request request) throws UnexpectedResponseException {
         try (Response response = client.newCall(request).execute()) {
             ResponseBody responseBody = response.body();
             String body = responseBody != null ? responseBody.string() : null;
