@@ -12,6 +12,7 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import okhttp3.OkHttpClient;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -104,18 +105,20 @@ public final class CloudDatabaseMatchKeyReportApi {
             throw new ValidationException("Validation failed", violations);
         }
 
-        Moshi moshi = new Moshi.Builder().build();
+
         boolean jsonResponse = request.isJson();
 
+        Map<String, String> params = request.toParamMap();
+        System.out.println(params);
         // Make request
         try {
-            String response = interzoidApi.doCloudConnectRequest(request.toParamMap());
+            String response = interzoidApi.doCloudConnectRequest(params);
             if (jsonResponse) {
+                Moshi moshi = new Moshi.Builder().build();
                 JsonAdapter<CloudDatabaseJsonResponse> jsonAdapter = moshi.adapter(CloudDatabaseJsonResponse.class);
                 return jsonAdapter.fromJson(response);
             } else {
-                JsonAdapter<CloudDatabaseResponseMessage> jsonAdapter = moshi.adapter(CloudDatabaseResponseMessage.class);
-                return jsonAdapter.fromJson(response);
+                return new CloudDatabaseResponseMessage(response);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

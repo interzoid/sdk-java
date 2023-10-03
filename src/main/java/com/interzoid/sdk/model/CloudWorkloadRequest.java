@@ -41,18 +41,19 @@ public class CloudWorkloadRequest extends InterzoidRequest {
 
     public Map<String, String> toParamMap() {
         Map<String, String> params = new HashMap<>();
+        params.put("function", "match");
         params.put("apikey", getApikey());
         params.put("process", process.getValue());
         params.put("source", source.getValue());
-        params.put("category", category.toString());
-        params.put("connectionString", connectionString);
+        params.put("category", category.getValue());
+        params.put("connection", connectionString);
         params.put("table", table);
         params.put("column", column);
         if (reference != null) {
             params.put("reference", reference);
         }
         if (newTable != null) {
-            params.put("newTable", newTable);
+            params.put("newtable", newTable);
         }
         if (json) {
             params.put("json", "true");

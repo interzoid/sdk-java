@@ -56,7 +56,7 @@ public final class InterzoidApi {
      * @throws InterzoidApiException if an error occurs while making the request
      */
     String doCloudConnectRequest(Map<String, String> params) throws InterzoidApiException {
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(CONNECT_BASE_URL).newBuilder();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(CONNECT_BASE_URL + "run").newBuilder();
         for (Map.Entry<String, String> entry : params.entrySet()) {
             urlBuilder.addQueryParameter(entry.getKey(), entry.getValue());
         }

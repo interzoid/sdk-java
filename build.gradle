@@ -7,7 +7,7 @@ group 'com.interzoid'
 version '1.0-SNAPSHOT'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
 }
 
 repositories {
@@ -46,3 +46,4 @@ publishing {
         }
     }
 }
+targetCompatibility = JavaVersion.VERSION_11
