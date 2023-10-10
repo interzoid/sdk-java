@@ -1,25 +1,28 @@
 package com.interzoid.sdk.api;
 
 import okhttp3.*;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.Map;
 
 /**
- * Copyright (C) 2023 Interzoid, Inc
- * <p>
- * InterzoidApi is a wrapper around OkHttp client to make requests to Interzoid APIs.
- * This class is not intended to be used directly. Instead, use the more specific APIs in the com.interzoid.sdk.api package.
- *
  * @author Interzoid, Inc
- * @version 1.0
+ * @version 1.1
+ *
+ * InterzoidApi is a wrapper around OkHttp client to make requests to Interzoid APIs.
+ * This class is not intended to be used directly. Instead, use the more specific APIs in the @link{com.interzoid.sdk.api} package.
+ *
  */
 public final class InterzoidApi {
-    private static final String BASE_URL = "https://api.interzoid.com/";
+    private static final String API_BASE_URL = "https://api.interzoid.com/";
     private static final String CONNECT_BASE_URL = "https://connect.interzoid.com/";
+
     private final OkHttpClient client;
 
+    /**
+     * Constructs a new InterzoidApi with the specified OkHttpClient.
+     * @param client The OkHttpClient to use.
+     */
     InterzoidApi(OkHttpClient client) {
         this.client = client;
     }
@@ -31,10 +34,10 @@ public final class InterzoidApi {
      * @param resource the resource to be requested
      * @param params   the parameters to be sent with the request
      * @return String (JSON)
-     * @throws InterzoidApiException if an error occurs while making the request
+     * @throws IOException if an error occurs while making the request
      */
-    String doGetRequest(String apiKey, String resource, Map<String, String> params) throws InterzoidApiException {
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(BASE_URL + resource).newBuilder();
+    String doApiGetRequest(String apiKey, String resource, Map<String, String> params) throws IOException {
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(API_BASE_URL + resource).newBuilder();
         if (params != null) {
             for (Map.Entry<String, String> entry : params.entrySet()) {
                 urlBuilder.addQueryParameter(entry.getKey(), entry.getValue());
@@ -51,11 +54,11 @@ public final class InterzoidApi {
     /**
      * Makes a GET request to the specified resource with the given parameters.
      *
-     * @param params   the parameters to be sent with the request
+     * @param params the parameters to be sent with the request
      * @return String (JSON or Plain Text)
      * @throws InterzoidApiException if an error occurs while making the request
      */
-    String doCloudConnectRequest(Map<String, String> params) throws InterzoidApiException {
+    String doCloudConnectRequest(Map<String, String> params) throws IOException {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(CONNECT_BASE_URL + "run").newBuilder();
         for (Map.Entry<String, String> entry : params.entrySet()) {
             urlBuilder.addQueryParameter(entry.getKey(), entry.getValue());
@@ -67,7 +70,7 @@ public final class InterzoidApi {
         return get(request);
     }
 
-    private String get(Request request) throws UnexpectedResponseException {
+    private String get(Request request) throws IOException {
         try (Response response = client.newCall(request).execute()) {
             ResponseBody responseBody = response.body();
             String body = responseBody != null ? responseBody.string() : null;

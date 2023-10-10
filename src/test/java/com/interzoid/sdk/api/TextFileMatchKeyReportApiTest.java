@@ -1,7 +1,6 @@
 package com.interzoid.sdk.api;
 
 import com.interzoid.sdk.model.*;
-import com.interzoid.sdk.model.Process;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,16 +11,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.Mockito.when;
 
-public class DelimitedFileMatchKeyReportApiTest {
+public class TextFileMatchKeyReportApiTest {
     private InterzoidApi interzoidApiMock;
-    private DelimitedFileMatchKeyReportApi delimitedFileMatchKeyReportApi;
+    private TextFileMatchKeyReportApi textFileMatchKeyReportApi;
     private Validator validator;
 
     @BeforeEach
     public void setUp() {
         validator = Validation.buildDefaultValidatorFactory().getValidator();
         interzoidApiMock = Mockito.mock(InterzoidApi.class);
-        delimitedFileMatchKeyReportApi = new DelimitedFileMatchKeyReportApi.Builder()
+        textFileMatchKeyReportApi = new TextFileMatchKeyReportApi.Builder()
                 .withInterzoidApi(interzoidApiMock)
                 .build();
     }
@@ -33,7 +32,7 @@ public class DelimitedFileMatchKeyReportApiTest {
         String textResponse = "success";
         when(interzoidApiMock.doCloudConnectRequest(anyMap())).thenReturn(textResponse);
 
-        DelimitedFileMatchRequest request = new DelimitedFileMatchRequest(
+        TextFileMatchRequest request = new TextFileMatchRequest(
                 apiKey,
                 Source.CSV,
                 Category.COMPANY,
@@ -41,7 +40,7 @@ public class DelimitedFileMatchKeyReportApiTest {
                 1,
                 ResponseType.HTML
         );
-        CloudDatabaseResponseMessage response = (CloudDatabaseResponseMessage) delimitedFileMatchKeyReportApi.doRequest(request);
+        CloudDatabaseStringResponse response = (CloudDatabaseStringResponse) textFileMatchKeyReportApi.doRequest(request);
         assertEquals("success", response.getMessage());
     }
 }

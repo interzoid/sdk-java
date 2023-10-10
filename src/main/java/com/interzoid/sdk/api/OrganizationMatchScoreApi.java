@@ -16,6 +16,9 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * @author Interzoid
+ * @version 1.1
+ * @see <a href="https://www.interzoid.com/apis/organization-match-score">Organization Match Score API</a>
  * <h2>Organization Match Score API</h2>
  *
  * <p>Copyright (C) 2023 Interzoid, Inc</p>
@@ -32,16 +35,20 @@ import java.util.concurrent.TimeUnit;
  * <pre>{@code
  * import com.interzoid.sdk.api.OrganizationMatchScoreApi;
  * import com.interzoid.sdk.model.OrganizationMatchScoreRequest;
- * import com.interzoid.sdk.model.OrganizationMatchScoreResponse;
+ * import com.interzoid.sdk.model.MatchScoreResponse;
  *
- * OrganizationMatchScoreApi api = new OrganizationMatchScoreApi.Builder().build();
+ * public class OrganizationMatchScoreTest {
+ *   public static void main(String[] args) throws Exception {
+ *     OrganizationMatchScoreApi api = new OrganizationMatchScoreApi.Builder().build();
  *
- * OrganizationMatchScoreRequest request = new OrganizationMatchScoreRequest(
- * "YOUR-API-KEY",  // apiKey
- * "Apple",         // org 1
- * "Apple, Inc");   // org 2
+ *     OrganizationMatchScoreRequest request = new OrganizationMatchScoreRequest(
+ *       "YOUR-API-KEY",  // apiKey
+ *       "Apple",         // org 1
+ *       "Apple, Inc");   // org 2
  *
- * OrganizationMatchScoreResponse response = api.doRequest(request);
+ *     MatchScoreResponse response = api.doRequest(request);
+ *   }
+ * }
  * }</pre>
  *
  * <h3>With Custom OkHttpClient</h3>
@@ -50,16 +57,20 @@ import java.util.concurrent.TimeUnit;
  * import okhttp3.OkHttpClient;
  * import java.util.concurrent.TimeUnit;
  *
- * OkHttpClient okHttpClient = new OkHttpClient.Builder()
+ * public class OrganizationMatchScoreTest {
+ *   public static void main(String[] args) throws Exception {
+ *     OkHttpClient okHttpClient = new OkHttpClient.Builder()
  *      .connectTimeout(10, TimeUnit.SECONDS)
  *      // other configuration
  *      .build();
- * OrganizationMatchScoreApi api = new OrganizationMatchScoreApi.Builder().withClient(okHttpClient).build();
+ *     OrganizationMatchScoreApi api = new OrganizationMatchScoreApi.Builder()
+ *       .withClient(okHttpClient)
+ *       .build();
+ *     // usage of api is the same as above
+ *   }
+ * }
  * }</pre>
  *
- * @author Interzoid, Inc
- * @version 1.0
- * @see <a href="https://www.interzoid.com/apis/organization-match-score">Organization Match Score API</a>
  */
 
 public final class OrganizationMatchScoreApi {
@@ -167,7 +178,7 @@ public final class OrganizationMatchScoreApi {
 
         // Make request
         try {
-            String response = interzoidApi.doGetRequest(request.getApikey(), RESOURCE, params);
+            String response = interzoidApi.doApiGetRequest(request.getApikey(), RESOURCE, params);
             return jsonAdapter.fromJson(response);
         } catch (Exception e) {
             throw new RuntimeException(e);

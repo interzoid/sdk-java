@@ -4,8 +4,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 /**
+ * @author Interzoid
+ * @version 1.1
  * Represents a request for generating an address match key, used for comparing and sorting address data.
  * This class is used to specify the address, match algorithm, and API key required for the request.
+ * @see MatchAlgorithm
+ * @see InterzoidRequest
  */
 public class AddressMatchKeyRequest extends InterzoidRequest {
 
@@ -18,6 +22,8 @@ public class AddressMatchKeyRequest extends InterzoidRequest {
     /**
      * The match algorithm to use when generating the match key.
      * Possible values are "wide," "medium," or "narrow."
+     *
+     * @see MatchAlgorithm
      */
     @NotNull(message = "Match algorithm is required")
     private final MatchAlgorithm matchAlgorithm;
@@ -28,6 +34,7 @@ public class AddressMatchKeyRequest extends InterzoidRequest {
      * @param apikey         The API key required for making the request.
      * @param address        The address for which the match key is generated.
      * @param matchAlgorithm The match algorithm to use.
+     * @see MatchAlgorithm
      */
     public AddressMatchKeyRequest(String apikey, String address, MatchAlgorithm matchAlgorithm) {
         super(apikey);
@@ -48,6 +55,7 @@ public class AddressMatchKeyRequest extends InterzoidRequest {
      * Gets the match algorithm used for generating the match key.
      *
      * @return The match algorithm.
+     * @see MatchAlgorithm
      */
     public MatchAlgorithm getMatchAlgorithm() {
         return matchAlgorithm;
@@ -62,7 +70,8 @@ public class AddressMatchKeyRequest extends InterzoidRequest {
     public String toString() {
         return "AddressMatchKeyRequest{" +
                 "address='" + address + '\'' +
-                '}';
+                ", matchAlgorithm=" + matchAlgorithm +
+                "} " + super.toString();
     }
 
     /**

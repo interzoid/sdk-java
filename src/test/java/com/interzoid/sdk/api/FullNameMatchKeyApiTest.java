@@ -32,7 +32,7 @@ public class FullNameMatchKeyApiTest {
         String fullName = "John Doe";
 
         String jsonResponse = "{\"SimKey\": \"12345\", \"Code\": \"Success\", \"Credits\": \"9999\"}";
-        when(interzoidApiMock.doGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
+        when(interzoidApiMock.doApiGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
 
         FullNameMatchKeyRequest request = new FullNameMatchKeyRequest(apiKey, fullName);
 

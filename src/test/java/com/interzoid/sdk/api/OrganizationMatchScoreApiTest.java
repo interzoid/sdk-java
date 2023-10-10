@@ -33,7 +33,7 @@ public class OrganizationMatchScoreApiTest {
         String org2 = "Apple Inc.";
 
         String jsonResponse = "{\"Score\": \"89\", \"Code\": \"Success\", \"Credits\": \"9999\"}";
-        when(interzoidApiMock.doGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
+        when(interzoidApiMock.doApiGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
 
         OrganizationMatchScoreRequest request = new OrganizationMatchScoreRequest(apiKey, org1, org2);
 

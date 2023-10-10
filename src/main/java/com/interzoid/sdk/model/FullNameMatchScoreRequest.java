@@ -3,20 +3,17 @@ package com.interzoid.sdk.model;
 import jakarta.validation.constraints.NotBlank;
 
 /**
+ * @author Interzoid
+ * @version 1.1
  * Represents a request for calculating the match score between two full names.
  * This class is used to specify the two full names and the API key required for the request.
+ * @see InterzoidRequest
  */
 public class FullNameMatchScoreRequest extends InterzoidRequest {
 
-    /**
-     * The first full name used for calculating the match score.
-     */
     @NotBlank(message = "Value 1 is required")
     private final String value1;
 
-    /**
-     * The second full name used for calculating the match score.
-     */
     @NotBlank(message = "Value 2 is required")
     private final String value2;
 
@@ -34,8 +31,6 @@ public class FullNameMatchScoreRequest extends InterzoidRequest {
     }
 
     /**
-     * Gets the first full name used for calculating the match score.
-     *
      * @return The first full name.
      */
     public String getValue1() {
@@ -43,19 +38,12 @@ public class FullNameMatchScoreRequest extends InterzoidRequest {
     }
 
     /**
-     * Gets the second full name used for calculating the match score.
-     *
      * @return The second full name.
      */
     public String getValue2() {
         return value2;
     }
 
-    /**
-     * Generates a string representation of the FullNameMatchScoreRequest for debugging purposes.
-     *
-     * @return A string containing both full names.
-     */
     @Override
     public String toString() {
         return "FullNameMatchScoreRequest{" +

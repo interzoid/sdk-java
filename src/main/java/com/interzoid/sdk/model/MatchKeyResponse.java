@@ -3,19 +3,19 @@ package com.interzoid.sdk.model;
 import com.squareup.moshi.Json;
 
 /**
+ * @author Interzoid
+ * @version 1.1
  * Represents the response structure for Interzoid API responses related to matching keys.
  * This class extends the InterzoidResponse class and contains an additional field to store the similarity key (SimKey).
+ * @see InterzoidResponse
  */
 public class MatchKeyResponse extends InterzoidResponse {
-/**
+    /**
      * Default constructor for the {@link MatchKeyResponse} class.
      */
     public MatchKeyResponse() {
     }
 
-    /**
-     * The similarity key (SimKey) provided by the Interzoid API for matching purposes.
-     */
     @Json(name = "SimKey")
     private String simKey;
 
@@ -29,8 +29,6 @@ public class MatchKeyResponse extends InterzoidResponse {
     }
 
     /**
-     * Sets the similarity key (SimKey).
-     *
      * @param simKey The similarity key to set.
      */
     public void setSimKey(String simKey) {

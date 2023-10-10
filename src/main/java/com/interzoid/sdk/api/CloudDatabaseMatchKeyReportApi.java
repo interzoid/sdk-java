@@ -1,9 +1,6 @@
 package com.interzoid.sdk.api;
 
-import com.interzoid.sdk.model.CloudConnectResponse;
-import com.interzoid.sdk.model.CloudDatabaseJsonResponse;
-import com.interzoid.sdk.model.CloudDatabaseResponseMessage;
-import com.interzoid.sdk.model.CloudWorkloadRequest;
+import com.interzoid.sdk.model.*;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import jakarta.validation.ConstraintViolation;
@@ -12,10 +9,58 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import okhttp3.OkHttpClient;
 
-import java.util.Map;
+import java.io.IOException;
+import java.lang.Process;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Interzoid, Inc
+ * @version 1.1
+ * @see <a href="https://connect.interzoid.com/">Interzoid Cloud Data Connect</a>
+ * @see <a href="https://connect.interzoid.com/connection-strings">Interzoid Cloud Data Connect Example Connection Strings</a>
+ * @see Process
+ * @see Source
+ * @see Category
+ * @see CloudWorkloadRequest
+ *
+ * <h2>Interzoid Cloud Database MatchKey Report API</h2>
+ *  Provides a client for interacting with the Interzoid Cloud Database MatchKey Report API.
+ *  This API client allows for processing cloud database workload requests and retrieving the respective responses.
+ *  <p>
+ *
+ * <p>Copyright (C) 2023 Interzoid, Inc</p>
+ *
+ * <p>Immediate results can be displayed, written to a Text file, used to generate a SQL Insert script, or stored in a new table in the Source database.</p>
+ *
+ * <p>APIs should be reused instead of creating new instances per request. This will give you the best performance.</p>
+ *
+ * <h3>Example</h3>
+ * <pre>{@code
+ * import com.interzoid.sdk.api.CloudDatabaseMatchKeyReportApi;
+ * import com.interzoid.sdk.model.CloudWorkloadRequest;
+ * import com.interzoid.sdk.model.CloudConnectResponse;
+ *
+ * public class CloudDatabaseMatchKeyReportTest {
+ *   public static void main(String[] args) throws Exception {
+ *     CloudDatabaseMatchKeyReportApi api = new CloudDatabaseMatchKeyReportApi.Builder().build();
+ *     CloudWorkloadRequest request = new CloudWorkloadRequest(
+ *       "YOUR-API-KEY",        // apiKey
+ *       Process.CREATE_TABLE,  // process
+ *       Source.MYSQL           // source
+ *       Category.COMPANY,      // category
+ *       "db_username:db_password@tcp(db_host)/db_name", // connectionString
+ *       "companies",           // sourceTable
+ *       "companyname",         // sourceColumn
+ *       "id",                  // sourceReferenceColumn
+ *       "companies_matched",   // targetTable
+ *     );
+ *     CloudConnectResponse response = api.doRequest(request);
+ *   }
+ * }
+ * }</pre>
+ *
+ */
 public final class CloudDatabaseMatchKeyReportApi {
     private final InterzoidApi interzoidApi;
     private final Validator validator;
@@ -88,40 +133,30 @@ public final class CloudDatabaseMatchKeyReportApi {
     }
 
     /**
-     * Processes a Cloud Database Workload request
+     * Processes a Cloud Database Workload request to obtain a MatchKey report.
      *
-     * @param {@code CloudDatabaseMatchKeyRequest} the request to be processed
-     * @return a {@code CloudConnectResponse} containing the results of the request
-     * @throws ValidationException if the request is invalid
-     * @throws Exception           if the request fails
+     * @param request the {@link CloudWorkloadRequest} object containing the details of the workload request
+     * @return a {@link CloudConnectResponse} object containing the results of the workload request
+     * @throws ValidationException if the request is invalid or missing required parameters
+     * @throws IOException if the API request fails for any reason
      * @see CloudWorkloadRequest
      * @see CloudConnectResponse
      * @see InterzoidApiException
      */
-    public CloudConnectResponse doRequest(CloudWorkloadRequest request) throws Exception {
+    public CloudConnectResponse doRequest(CloudWorkloadRequest request) throws IOException {
         // Validate request object
         Set<ConstraintViolation<CloudWorkloadRequest>> violations = validator.validate(request);
         if (!violations.isEmpty()) {
             throw new ValidationException("Validation failed", violations);
         }
 
-
-        boolean jsonResponse = request.isJson();
-
-        Map<String, String> params = request.toParamMap();
-        System.out.println(params);
-        // Make request
-        try {
-            String response = interzoidApi.doCloudConnectRequest(params);
-            if (jsonResponse) {
-                Moshi moshi = new Moshi.Builder().build();
-                JsonAdapter<CloudDatabaseJsonResponse> jsonAdapter = moshi.adapter(CloudDatabaseJsonResponse.class);
-                return jsonAdapter.fromJson(response);
-            } else {
-                return new CloudDatabaseResponseMessage(response);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        String response = interzoidApi.doCloudConnectRequest(request.toParamMap());
+        if (request.isJson()) {
+            Moshi moshi = new Moshi.Builder().build();
+            JsonAdapter<CloudDatabaseJsonResponse> jsonAdapter = moshi.adapter(CloudDatabaseJsonResponse.class);
+            return jsonAdapter.fromJson(response);
+        } else {
+            return new CloudDatabaseStringResponse(response);
         }
     }
 }

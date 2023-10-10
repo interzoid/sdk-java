@@ -1,13 +1,19 @@
 package com.interzoid.sdk.api;
 
 /**
- * Exception thrown when the API returns a 4xx error code.
+ * Exception thrown when the API returns a 4xx error code, indicating client-side errors.
+ * This class extends {@link InterzoidApiException} to provide more specific error handling
+ * for client errors encountered when interacting with the API.
+ *
+ * @see InterzoidApiException
  */
 public class ClientErrorException extends InterzoidApiException {
     /**
-     * Constructs a new ClientErrorException with the specified message.
+     * Constructs a new {@code ClientErrorException} with the specified error message.
+     * The message is used to provide additional information about the error which can
+     * be useful for debugging or logging purposes.
      *
-     * @param message The message to set.
+     * @param message the detailed error message explaining the client error
      */
     public ClientErrorException(String message) {
         super(message);

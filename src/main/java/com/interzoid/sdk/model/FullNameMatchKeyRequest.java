@@ -3,14 +3,14 @@ package com.interzoid.sdk.model;
 import jakarta.validation.constraints.NotBlank;
 
 /**
+ * @author Interzoid
+ * @version 1.1
  * Represents a request for generating a full name match key, used for comparing and sorting full names.
  * This class is used to specify the full name and API key required for the request.
+ * @see InterzoidRequest
  */
 public class FullNameMatchKeyRequest extends InterzoidRequest {
 
-    /**
-     * The full name for which the match key is generated.
-     */
     @NotBlank(message = "Full name is required")
     private final String fullName;
 
@@ -26,19 +26,12 @@ public class FullNameMatchKeyRequest extends InterzoidRequest {
     }
 
     /**
-     * Gets the full name for which the match key is generated.
-     *
      * @return The full name.
      */
     public String getFullName() {
         return fullName;
     }
 
-    /**
-     * Generates a string representation of the FullNameMatchKeyRequest for debugging purposes.
-     *
-     * @return A string containing the full name.
-     */
     @Override
     public String toString() {
         return "FullNameMatchKeyRequest{" +

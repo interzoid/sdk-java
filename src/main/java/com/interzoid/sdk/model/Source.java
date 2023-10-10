@@ -26,10 +26,18 @@ public enum Source {
 
     private final String value;
 
+    /**
+     * Constructor
+     * @param value The value
+     */
     Source(String value) {
         this.value = value;
     }
 
+    /**
+     * Gets the value
+     * @return the value
+     */
     public String getValue() {
         return value;
     }

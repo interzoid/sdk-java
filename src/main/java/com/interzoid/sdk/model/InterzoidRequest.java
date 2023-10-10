@@ -3,14 +3,13 @@ package com.interzoid.sdk.model;
 import jakarta.validation.constraints.NotBlank;
 
 /**
+ * @author Interzoid
+ * @version 1.1
  * Represents a base request class for Interzoid API requests.
  * This class contains the common attribute 'apikey' required for authenticating API requests.
  */
 public class InterzoidRequest {
 
-    /**
-     * The API key used for authenticating API requests.
-     */
     @NotBlank(message = "API key is required")
     private final String apikey;
 
@@ -24,8 +23,6 @@ public class InterzoidRequest {
     }
 
     /**
-     * Gets the API key used for authenticating API requests.
-     *
      * @return The API key.
      */
     public String getApikey() {

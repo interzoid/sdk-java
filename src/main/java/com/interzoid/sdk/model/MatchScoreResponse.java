@@ -3,8 +3,11 @@ package com.interzoid.sdk.model;
 import com.squareup.moshi.Json;
 
 /**
+ * @author Interzoid
+ * @version 1.1
  * Represents the response structure for Interzoid API responses related to matching scores.
  * This class extends the InterzoidResponse class and contains an additional field to store the matching score (Score).
+ * @see InterzoidResponse
  */
 public class MatchScoreResponse extends InterzoidResponse {
     /**
@@ -29,8 +32,6 @@ public class MatchScoreResponse extends InterzoidResponse {
     }
 
     /**
-     * Sets the matching score.
-     *
      * @param score The matching score to set.
      */
     public void setScore(String score) {

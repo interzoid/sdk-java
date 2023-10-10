@@ -46,11 +46,10 @@ public class CloudDatabaseMatchKeyReportApiTest {
                 "companies",
                 "companyname",
                 "id",
-                null,
                 false,
                 false
         );
-        CloudDatabaseResponseMessage response = (CloudDatabaseResponseMessage) cloudDatabaseMatchKeyReportApi.doRequest(request);
+        CloudDatabaseStringResponse response = (CloudDatabaseStringResponse) cloudDatabaseMatchKeyReportApi.doRequest(request);
         assertEquals("success", response.getMessage());
     }
 
@@ -66,35 +65,11 @@ public class CloudDatabaseMatchKeyReportApiTest {
                 "companies",
                 "companyname",
                 "id",
-                null,  // newTable
-                false,
-                false
+                null  // newTable
         );
         Set<ConstraintViolation<CloudWorkloadRequest>> violations = validator.validate(request);
         assertFalse(violations.isEmpty());
         assertEquals("newTable is required when process is CREATE_TABLE", violations.iterator().next().getMessage());
     }
-
-    @Test
-    public void testJsonHtmlTrueOnNonMatchReportProcess() {
-        String apiKey = "testApiKey";
-        CloudWorkloadRequest request = new CloudWorkloadRequest(
-                apiKey,
-                Process.GEN_SQL,
-                Source.MARIADB,
-                Category.COMPANY,
-                "user:password@tcp(ec2-0-0-0-0.compute-1.amazonaws.com)/interzoid",
-                "companies",
-                "companyname",
-                "id",
-                null,  // newTable
-                true,
-                false
-        );
-        Set<ConstraintViolation<CloudWorkloadRequest>> violations = validator.validate(request);
-        assertFalse(violations.isEmpty());
-        assertEquals("Setting json or html to true is only valid when process is MATCH_REPORT", violations.iterator().next().getMessage());
-    }
-
 
 }

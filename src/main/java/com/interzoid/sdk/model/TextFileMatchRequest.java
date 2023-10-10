@@ -5,7 +5,16 @@ import jakarta.validation.constraints.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DelimitedFileMatchRequest extends InterzoidRequest{
+/**
+ * @author Interzoid
+ * @version 1.1
+ * This is a request object for the Delimited File Match service
+ * @see com.interzoid.sdk.api.TextFileMatchKeyReportApi
+ * @see Source
+ * @see Category
+ * @see ResponseType
+ */
+public class TextFileMatchRequest extends InterzoidRequest{
     @NotNull(message = "source is required")
     private final Source source;
     @NotNull(message = "category is required")
@@ -20,7 +29,7 @@ public class DelimitedFileMatchRequest extends InterzoidRequest{
     private final ResponseType responseType;
 
     /**
-     * Constructs a new DelimitedFileMatchKeyReportRequest with a reference column
+     * Constructs a new TextFileMatchRequest with a reference column
      *
      * @param apikey        The API key required for authenticating API requests.
      * @param source        The source of the data to be matched. See {@link Source}
@@ -30,7 +39,7 @@ public class DelimitedFileMatchRequest extends InterzoidRequest{
      * @param reference     The column number of the data to use as a reference for matching
      * @param responseType  The type of response to be returned. See {@link ResponseType}
      */
-    public DelimitedFileMatchRequest(String apikey, Source source, Category category, String fileUrl, int column, int reference, ResponseType responseType) {
+    public TextFileMatchRequest(String apikey, Source source, Category category, String fileUrl, int column, int reference, ResponseType responseType) {
         super(apikey);
         this.source = source;
         this.category = category;
@@ -41,7 +50,7 @@ public class DelimitedFileMatchRequest extends InterzoidRequest{
     }
 
     /**
-     * Constructs a new DelimitedFileMatchKeyReportRequest without a reference column
+     * Constructs a new TextFileMatchRequest without a reference column
      *
      * @param apikey        The API key required for authenticating API requests.
      * @param source        The source of the data to be matched. See {@link Source}
@@ -50,7 +59,7 @@ public class DelimitedFileMatchRequest extends InterzoidRequest{
      * @param column        The column number of the data to be matched
      * @param responseType  The type of response to be returned. See {@link ResponseType}
      */
-    public DelimitedFileMatchRequest(String apikey, Source source, Category category, String fileUrl, int column, ResponseType responseType) {
+    public TextFileMatchRequest(String apikey, Source source, Category category, String fileUrl, int column, ResponseType responseType) {
         super(apikey);
         this.source = source;
         this.category = category;
@@ -59,6 +68,10 @@ public class DelimitedFileMatchRequest extends InterzoidRequest{
         this.responseType = responseType;
     }
 
+    /**
+     * Converts the request object to a Map of key/value pairs for use in the API request
+     * @return A Map of key/value pairs representing the request object
+     */
     public Map<String, String> toParamMap() {
         Map<String, String> params = new HashMap<>();
         params.put("apikey", getApikey());
@@ -86,26 +99,44 @@ public class DelimitedFileMatchRequest extends InterzoidRequest{
         return params;
     }
 
+    /**
+     * @return The source of the data to be matched
+     */
     public Source getSource() {
         return source;
     }
 
+    /**
+     * @return The category of the data to be matched
+     */
     public Category getCategory() {
         return category;
     }
 
+    /**
+     * @return The URL of the file to be matched
+     */
     public String getFileUrl() {
         return fileUrl;
     }
 
+    /**
+     * @return The column number of the data to be matched
+     */
     public int getColumn() {
         return column;
     }
 
+    /**
+     * @return The column number of the data to use as a reference for matching
+     */
     public int getReference() {
         return reference;
     }
 
+    /**
+     * @return The type of response to be returned
+     */
     public ResponseType getResponseType() {
         return responseType;
     }

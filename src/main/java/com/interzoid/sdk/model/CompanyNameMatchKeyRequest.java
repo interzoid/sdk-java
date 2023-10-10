@@ -4,21 +4,16 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 /**
+ * @author Interzoid
+ * @version 1.1
  * Represents a request for generating a company name match key, used for comparing and sorting company names.
  * This class is used to specify the company name, match algorithm, and API key required for the request.
  */
 public class CompanyNameMatchKeyRequest extends InterzoidRequest {
 
-    /**
-     * The company name for which the match key is generated.
-     */
     @NotBlank(message = "Company name is required")
     private final String companyName;
 
-    /**
-     * The match algorithm to use when generating the match key.
-     * Possible values are "wide" or "narrow."
-     */
     @NotNull(message = "Match algorithm is required")
     private final MatchAlgorithm matchAlgorithm;
 
@@ -28,6 +23,7 @@ public class CompanyNameMatchKeyRequest extends InterzoidRequest {
      * @param apikey         The API key required for making the request.
      * @param companyName    The company name for which the match key is generated.
      * @param matchAlgorithm The match algorithm to use.
+     * @see MatchAlgorithm
      */
     public CompanyNameMatchKeyRequest(String apikey, String companyName, MatchAlgorithm matchAlgorithm) {
         super(apikey);
@@ -36,8 +32,6 @@ public class CompanyNameMatchKeyRequest extends InterzoidRequest {
     }
 
     /**
-     * Gets the company name for which the match key is generated.
-     *
      * @return The company name.
      */
     public String getCompanyName() {
@@ -45,19 +39,12 @@ public class CompanyNameMatchKeyRequest extends InterzoidRequest {
     }
 
     /**
-     * Gets the match algorithm used for generating the match key.
-     *
      * @return The match algorithm.
      */
     public MatchAlgorithm getMatchAlgorithm() {
         return matchAlgorithm;
     }
 
-    /**
-     * Generates a string representation of the CompanyNameMatchKeyRequest for debugging purposes.
-     *
-     * @return A string containing the company name.
-     */
     @Override
     public String toString() {
         return "CompanyNameMatchKeyRequest{" +
@@ -91,8 +78,6 @@ public class CompanyNameMatchKeyRequest extends InterzoidRequest {
         }
 
         /**
-         * Gets the string value of the match algorithm.
-         *
          * @return The match algorithm value.
          */
         public String getValue() {

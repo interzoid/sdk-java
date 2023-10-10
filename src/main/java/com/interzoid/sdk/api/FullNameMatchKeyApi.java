@@ -16,9 +16,11 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * <h2>Get Full Name Match Similarity Key API</h2>
+ * @author Interzoid
+ * @version 1.1
+ * @see <a href="https://www.interzoid.com/apis/individual-name-matching">Get Full Name Match Similarity Key API</a>
  *
- * <p>Copyright (C) 2023 Interzoid, Inc</p>
+ * <h2>Get Full Name Match Similarity Key API</h2>
  *
  * <p>This API provides a hashed similarity key from the input data used to match with other similar full name data. Use the generated similarity key, rather than the actual data itself, to match and/or sort individual name data by similarity. This avoids the problems of data inconsistency, misspellings, and name variations when matching within a single dataset, and can also help matching across datasets or for more advanced searching.</p>
  *
@@ -32,16 +34,18 @@ import java.util.concurrent.TimeUnit;
  * <pre>{@code
  * import com.interzoid.sdk.api.FullNameMatchKeyApi;
  * import com.interzoid.sdk.model.FullNameMatchKeyRequest;
- * import com.interzoid.sdk.model.FullNameMatchKeyResponse;
+ * import com.interzoid.sdk.model.MatchKeyResponse;
  *
- * FullNameMatchKeyApi api = new FullNameMatchKeyApi.Builder().build();
- *
- * FullNameMatchKeyRequest request = new FullNameMatchKeyRequest(
- *     "YOUR-API-KEY", // apiKey
- *     "John Smith"    // full name
- * );
- *
- * FullNameMatchKeyResponse response = api.doRequest(request);
+ * public class FullNameMatchKeyTest {
+ *   public static void main(String[] args) throws Exception {
+ *     FullNameMatchKeyApi api = new FullNameMatchKeyApi.Builder().build();
+ *     FullNameMatchKeyRequest request = new FullNameMatchKeyRequest(
+ *       "YOUR-API-KEY", // apiKey
+ *       "John Smith"    // full name
+ *     );
+ *     MatchKeyResponse response = api.doRequest(request);
+ *   }
+ * }
  * }</pre>
  *
  * <h3>With Custom OkHttpClient</h3>
@@ -50,17 +54,20 @@ import java.util.concurrent.TimeUnit;
  * import okhttp3.OkHttpClient;
  * import java.util.concurrent.TimeUnit;
  *
- * OkHttpClient okHttpClient = new OkHttpClient.Builder()
- *     .connectTimeout(10, TimeUnit.SECONDS)
- *     // other configuration
- *     .build();
- * FullNameMatchKeyApi api = new FullNameMatchKeyApi.Builder().withClient(okHttpClient).build();
+ * public class FullNameMatchKeyTest {
+ *   public static void main(String[] args) throws Exception {
  *
- * // usage of api is the same as above
+ *     OkHttpClient okHttpClient = new OkHttpClient.Builder()
+ *       .connectTimeout(10, TimeUnit.SECONDS)
+ *       // other configuration
+ *       .build();
+ *     FullNameMatchKeyApi api = new FullNameMatchKeyApi.Builder()
+ *       .withClient(okHttpClient)
+ *       .build();
+ *     // usage of api is the same as above
+ *   }
+ * }
  * }</pre>
- *
- * @version 1.0
- * @see <a href="https://www.interzoid.com/apis/individual-name-matching">Get Full Name Match Similarity Key API</a>
  */
 
 public final class FullNameMatchKeyApi {
@@ -162,7 +169,7 @@ public final class FullNameMatchKeyApi {
         Map<String, String> params = new HashMap<>();
         params.put("fullname", request.getFullName());
         try {
-            String response = interzoidApi.doGetRequest(request.getApikey(), RESOURCE, params);
+            String response = interzoidApi.doApiGetRequest(request.getApikey(), RESOURCE, params);
             return jsonAdapter.fromJson(response);
         } catch (Exception e) {
             throw new RuntimeException(e);
