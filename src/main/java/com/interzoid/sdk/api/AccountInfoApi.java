@@ -1,5 +1,7 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.InterzoidApiException;
+import com.interzoid.sdk.api.exceptions.ValidationException;
 import com.interzoid.sdk.model.InterzoidRequest;
 import com.interzoid.sdk.model.InterzoidResponse;
 import com.squareup.moshi.JsonAdapter;
@@ -15,33 +17,18 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author Interzoid
- * @version 1.1
- * @see <a href="https://www.interzoid.com/apis/remaining-api-credits">Credits Remaining API</a>
- * @see InterzoidRequest
+ * 
  * <h2>Account Info (Credits Remaining) API</h2>
  * <p>
  * AccountInfoApi is a client for the Interzoid Get Remaining Credits API.
  * <p>
  * APIs should be reused instead of creating new instances per request. This will give you the best performance.
- * <p>
- *
- * <h3>Example</h3>
- *
- * <pre>{@code
- * import com.interzoid.sdk.api.AccountInfoApi;
- * import com.interzoid.sdk.model.InterzoidRequest;
- * import com.interzoid.sdk.model.InterzoidResponse;
- *
- * public class AccountInfoTest {
- *   public static void main(String[] args) throws Exception {
- *     AccountInfoApi api = new AccountInfoApi.Builder().build();
- *     Interzoid request = new InterzoidRequest("YOUR-API-KEY");
- *     InterzoidResponse response = api.getAccountInfo(request);
- *   }
- * }
- * }</pre>
+ * @see <a href="https://www.interzoid.com/apis/remaining-api-credits">Credits Remaining API</a>
+ * @see InterzoidRequest
+ * @version 1.0
  */
+
+
 public final class AccountInfoApi {
     private static final String RESOURCE = "getremainingcredits";
     private final InterzoidApi interzoidApi;
@@ -125,7 +112,7 @@ public final class AccountInfoApi {
      * @param request the request object containing the necessary details, including the API key, to fetch the account information
      * @return a representation of the account information as an {@code AccountInfoResponse} object
      * @throws ValidationException if the request is invalid
-     * @throws Exception           if the request fails
+     * @throws IOException         if the request fails
      * @see InterzoidRequest
      * @see InterzoidResponse
      * @see InterzoidApiException

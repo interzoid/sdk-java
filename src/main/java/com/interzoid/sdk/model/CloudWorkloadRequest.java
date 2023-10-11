@@ -7,8 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Interzoid
- * @version 1.1
+ * 
  * The CloudWorkloadRequest class is used to run cloud database workload requests against your cloud connected database.
  * @see <a href="https://connect.interzoid.com/">Interzoid Cloud Data Connect</a>
  * @see <a href="https://connect.interzoid.com/connection-strings">Interzoid Cloud Data Connect Example Connection Strings</a>
@@ -40,16 +39,17 @@ public class CloudWorkloadRequest extends InterzoidRequest {
      * Creates a new CloudWorkloadRequest.
      * This constructor is preferred when returning a match report ({@code Process.MATCH_REPORT}) as JSON, HTML, or text.
      * Set both the json and html flags to false to return the match report as text.
-     * @param apikey The API key to be used for the request.
-     * @param process The process to run
-     * @param source The source used for the match report.
-     * @param category The category used for generating the match keys.
+     *
+     * @param apikey           The API key to be used for the request.
+     * @param process          The process to run
+     * @param source           The source used for the match report.
+     * @param category         The category used for generating the match keys.
      * @param connectionString The connection string used for the match report.
-     * @param sourceTableName The table used for the match report.
-     * @param matchColumn The column used for matching.
-     * @param referenceColumn An optional reference column used in the report. Set to null if not used.
-     * @param json Return match report as JSON.
-     * @param html Return match report as HTML
+     * @param sourceTableName  The table used for the match report.
+     * @param matchColumn      The column used for matching.
+     * @param referenceColumn  An optional reference column used in the report. Set to null if not used.
+     * @param json             Return match report as JSON.
+     * @param html             Return match report as HTML
      */
     public CloudWorkloadRequest(String apikey, Process process, Source source, Category category, String connectionString, String sourceTableName, String matchColumn, String referenceColumn, boolean json, boolean html) {
         super(apikey);
@@ -67,15 +67,16 @@ public class CloudWorkloadRequest extends InterzoidRequest {
     /**
      * This constructor is preferred when writing match results to a new table, generating SQL insert statements, or
      * returning match keys only. ({@code Process.CREATE_TABLE}, {@code Process.KEYS_ONLY}, or {@code Process.GEN_SQL})
-     * @param apikey The API key to be used for the request.
-     * @param process The process to run
-     * @param source The source used for the match report.
-     * @param category The category used for generating the match keys.
+     *
+     * @param apikey           The API key to be used for the request.
+     * @param process          The process to run
+     * @param source           The source used for the match report.
+     * @param category         The category used for generating the match keys.
      * @param connectionString The connection string used for the match report.
-     * @param sourceTableName The table used for the match report.
-     * @param matchColumn The column used for matching.
-     * @param referenceColumn An optional reference column used in the report.
-     * @param newTableName A new table to store the match results. This is required if the process is CREATE_TABLE.
+     * @param sourceTableName  The table used for the match report.
+     * @param matchColumn      The column used for matching.
+     * @param referenceColumn  An optional reference column used in the report.
+     * @param newTableName     A new table to store the match results. This is required if the process is CREATE_TABLE.
      */
     public CloudWorkloadRequest(String apikey, Process process, Source source, Category category, String connectionString, String sourceTableName, String matchColumn, String referenceColumn, String newTableName) {
         super(apikey);
@@ -91,6 +92,7 @@ public class CloudWorkloadRequest extends InterzoidRequest {
 
     /**
      * Converts the CloudWorkloadRequest to a Map of parameters to be used in the request.
+     *
      * @return A Map of parameters to be used in the request.
      */
     public Map<String, String> toParamMap() {
@@ -119,30 +121,34 @@ public class CloudWorkloadRequest extends InterzoidRequest {
     }
 
     /**
-     * @see Process
+     * Gets the process.
      * @return The process.
+     * @see Process
      */
     public Process getProcess() {
         return process;
     }
 
     /**
-     * @see Source
+     * Gets the source.
      * @return The source.
+     * @see Source
      */
     public Source getSource() {
         return source;
     }
 
     /**
-     * @see Category
+     * Gets the category.
      * @return The category.
+     * @see Category
      */
     public Category getCategory() {
         return category;
     }
 
     /**
+     * Gets the connection string.
      * @return The connection string.
      */
     public String getConnectionString() {
@@ -150,6 +156,7 @@ public class CloudWorkloadRequest extends InterzoidRequest {
     }
 
     /**
+     * Gets the source table name.
      * @return The source table name.
      */
     public String getSourceTableName() {
@@ -157,6 +164,7 @@ public class CloudWorkloadRequest extends InterzoidRequest {
     }
 
     /**
+     * Gets the source match column name.
      * @return The source match column name.
      */
     public String getMatchColumn() {
@@ -164,6 +172,7 @@ public class CloudWorkloadRequest extends InterzoidRequest {
     }
 
     /**
+     * Gets the reference column name.
      * @return The reference column name.
      */
     public String getReferenceColumn() {
@@ -171,6 +180,7 @@ public class CloudWorkloadRequest extends InterzoidRequest {
     }
 
     /**
+     * Gets the new table name.
      * @return The new table name.
      */
     public String getNewTableName() {
@@ -178,6 +188,7 @@ public class CloudWorkloadRequest extends InterzoidRequest {
     }
 
     /**
+     * Gets the JSON flag.
      * @return The JSON flag.
      */
     public boolean isJson() {
@@ -185,6 +196,7 @@ public class CloudWorkloadRequest extends InterzoidRequest {
     }
 
     /**
+     * Gets the HTML flag.
      * @return The HTML flag.
      */
     public boolean isHtml() {

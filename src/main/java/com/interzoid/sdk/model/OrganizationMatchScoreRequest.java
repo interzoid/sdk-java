@@ -3,10 +3,9 @@ package com.interzoid.sdk.model;
 import jakarta.validation.constraints.NotBlank;
 
 /**
- * @author Interzoid
- * @version 1.1
  * Represents a request structure for obtaining a matching score between two organization values.
  * This class extends the InterzoidRequest class and includes two values (Value 1 and Value 2) to be used for scoring.
+ * @see InterzoidRequest
  */
 public class OrganizationMatchScoreRequest extends InterzoidRequest {
     @NotBlank(message = "Value 1 is required")
@@ -29,6 +28,7 @@ public class OrganizationMatchScoreRequest extends InterzoidRequest {
     }
 
     /**
+     * Gets the first organization value.
      * @return The first organization value.
      */
     public String getValue1() {
@@ -36,6 +36,7 @@ public class OrganizationMatchScoreRequest extends InterzoidRequest {
     }
 
     /**
+     * Gets the second organization value.
      * @return The second organization value.
      */
     public String getValue2() {
@@ -43,9 +44,8 @@ public class OrganizationMatchScoreRequest extends InterzoidRequest {
     }
 
     /**
-     * Returns a string representation of the OrganizationMatchScoreRequest object.
-     *
-     * @return A string containing Value 1, Value 2, and the API key (inherited from InterzoidRequest).
+     * Returns a string representation of the object.
+     * @return A string representation of the object.
      */
     @Override
     public String toString() {

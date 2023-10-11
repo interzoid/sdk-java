@@ -1,5 +1,7 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.InterzoidApiException;
+import com.interzoid.sdk.api.exceptions.ValidationException;
 import com.interzoid.sdk.model.CompanyNameMatchKeyRequest;
 import com.interzoid.sdk.model.MatchKeyResponse;
 import com.squareup.moshi.JsonAdapter;
@@ -17,10 +19,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author Interzoid, Inc
- * @version 1.1
- * @see <a href="https://www.interzoid.com/apis/company-name-matching">Get Company Match Similarity Key API</a>
- *
+ * 
  * <h2>Get Company Match Similarity Key API</h2>
  *
  * <p>Company/Organization name data can be inconsistent, making redundant data difficult to track down or match (GE, Gen Electric, G.E., etc.). This API provides a hashed similarity key from the input data used to match with other similar company name data. Use the generated similarity key, rather than the actual data itself, to match and/or sort company name data to identify inconsistently represented company and organization name data. This avoids the problems of data inconsistency, misspellings, and name variations when matching within a single dataset or across multiple data sources.</p>
@@ -69,6 +68,10 @@ import java.util.concurrent.TimeUnit;
  *   }
  * }
  * }</pre>
+ * @see <a href="https://www.interzoid.com/apis/company-name-matching">Get Company Match Similarity Key API</a>
+ * @see CompanyNameMatchKeyRequest
+ * @see MatchKeyResponse
+ * @version 1.0
  */
 
 public final class CompanyNameMatchKeyApi {

@@ -1,5 +1,7 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.InterzoidApiException;
+import com.interzoid.sdk.api.exceptions.ValidationException;
 import com.interzoid.sdk.model.*;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -15,23 +17,13 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author Interzoid, Inc
- * @version 1.1
- * @see <a href="https://connect.interzoid.com/">Interzoid Cloud Data Connect</a>
- * @see <a href="https://connect.interzoid.com/connection-strings">Interzoid Cloud Data Connect Example Connection Strings</a>
- * @see Process
- * @see Source
- * @see Category
- * @see CloudWorkloadRequest
- *
  * <h2>Interzoid Cloud Database MatchKey Report API</h2>
- *  Provides a client for interacting with the Interzoid Cloud Database MatchKey Report API.
- *  This API client allows for processing cloud database workload requests and retrieving the respective responses.
- *  <p>
+ * <p>
+ * Provides a client for interacting with the Interzoid Cloud Database MatchKey Report API.
+ * This API client allows for processing cloud database workload requests and retrieving the respective responses.
+ * </p>
  *
- * <p>Copyright (C) 2023 Interzoid, Inc</p>
- *
- * <p>Immediate results can be displayed, written to a Text file, used to generate a SQL Insert script, or stored in a new table in the Source database.</p>
+ * <p>Immediate results can be displayed, written to a text file, used to generate a SQL INSERT scripts, or stored in a new table in the source database.</p>
  *
  * <p>APIs should be reused instead of creating new instances per request. This will give you the best performance.</p>
  *
@@ -60,6 +52,14 @@ import java.util.concurrent.TimeUnit;
  * }
  * }</pre>
  *
+ * 
+ * @see <a href="https://connect.interzoid.com/">Interzoid Cloud Data Connect</a>
+ * @see <a href="https://connect.interzoid.com/connection-strings">Interzoid Cloud Data Connect Example Connection Strings</a>
+ * @see Process
+ * @see Source
+ * @see Category
+ * @see CloudWorkloadRequest
+ * @version 1.0
  */
 public final class CloudDatabaseMatchKeyReportApi {
     private final InterzoidApi interzoidApi;
@@ -82,6 +82,7 @@ public final class CloudDatabaseMatchKeyReportApi {
         /**
          * Specifies the {@link OkHttpClient} instance to be used by the {@code CloudDatabaseMatchKeyReportApi} instance being built.
          * This is optional and allows for customization of the {@code OkHttpClient} instance used internally by the {@code CloudDatabaseMatchKeyReportApi} instance.
+         *
          * @param client the {@code OkHttpClient} instance to be used
          * @return the current builder instance, allowing for method chaining
          */
@@ -138,7 +139,7 @@ public final class CloudDatabaseMatchKeyReportApi {
      * @param request the {@link CloudWorkloadRequest} object containing the details of the workload request
      * @return a {@link CloudConnectResponse} object containing the results of the workload request
      * @throws ValidationException if the request is invalid or missing required parameters
-     * @throws IOException if the API request fails for any reason
+     * @throws IOException         if the API request fails for any reason
      * @see CloudWorkloadRequest
      * @see CloudConnectResponse
      * @see InterzoidApiException

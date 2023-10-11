@@ -1,5 +1,7 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.InterzoidApiException;
+import com.interzoid.sdk.api.exceptions.ValidationException;
 import com.interzoid.sdk.model.AddressMatchKeyRequest;
 import com.interzoid.sdk.model.MatchKeyResponse;
 import com.squareup.moshi.JsonAdapter;
@@ -17,9 +19,6 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author Interzoid, Inc.
- * @version 1.1
- * @see <a href="https://www.interzoid.com/apis/street-address-matching">Get Address Match Similarity Key API</a>
  * <h2>Get Address Match Similarity Key API</h2>
  *
  * <p>This API provides a hashed similarity key from the input data used to match with other similar address data. Use the generated similarity key, rather than the actual data itself, to match and/or sort address data by similarity. This avoids the problems of data inconsistency, misspellings, and address element variations when matching either within a single dataset or across datasets. It also provides for broader searching capabilities.</p>
@@ -44,7 +43,6 @@ import java.util.concurrent.TimeUnit;
  *       "YOUR-API-KEY",       // apiKey
  *       "123 Main Street"     // address
  *     );
- *
  *     MatchKeyResponse response = api.doRequest(request);
  *   }
  * }
@@ -70,6 +68,10 @@ import java.util.concurrent.TimeUnit;
  *   }
  * }
  * }</pre>
+ * @see <a href="https://www.interzoid.com/apis/street-address-matching">Get Address Match Similarity Key API</a>
+ * @see AddressMatchKeyRequest
+ * @see MatchKeyResponse
+ * @version 1.0
  */
 public final class AddressMatchKeyApi {
     private static final String RESOURCE = "getaddressmatchadvanced";

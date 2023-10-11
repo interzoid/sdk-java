@@ -1,5 +1,6 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.ValidationException;
 import com.interzoid.sdk.model.CompanyNameMatchKeyRequest;
 import com.interzoid.sdk.model.MatchKeyResponse;
 import jakarta.validation.ConstraintViolation;

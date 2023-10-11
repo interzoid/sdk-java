@@ -2,36 +2,32 @@ package com.interzoid.sdk.model;
 
 import com.squareup.moshi.Json;
 import com.squareup.moshi.JsonClass;
+
 import java.util.List;
 
 /**
- * @author Interzoid
- * @version 1.1
- *
  * This represents a match report in JSON format.
  * @see CloudConnectResponse
  */
 @JsonClass(generateAdapter = false)
 public class CloudDatabaseJsonResponse implements CloudConnectResponse {
-    /**
-     * The status of the response
-     */
     @Json(name = "Status")
     private String status;
 
-    /**
-     * The response message
-     */
     @Json(name = "Message")
     private String message;
 
-    /**
-     * The list of match clusters
-     */
     @Json(name = "MatchClusters")
     private List<List<MatchCluster>> matchClusters;
 
     /**
+     * Default constructor for the {@link CloudDatabaseJsonResponse} class.
+     */
+    public CloudDatabaseJsonResponse() {
+    }
+
+    /**
+     * Gets the status of the response.
      * @return The status of the response
      */
     public String getStatus() {
@@ -39,6 +35,7 @@ public class CloudDatabaseJsonResponse implements CloudConnectResponse {
     }
 
     /**
+     * Sets the status of the response.
      * @param status The status of the response
      */
     public void setStatus(String status) {
@@ -46,6 +43,7 @@ public class CloudDatabaseJsonResponse implements CloudConnectResponse {
     }
 
     /**
+     * Gets the response message.
      * @return The response message
      */
     public String getMessage() {
@@ -53,6 +51,7 @@ public class CloudDatabaseJsonResponse implements CloudConnectResponse {
     }
 
     /**
+     * Sets the response message.
      * @param message The response message
      */
     public void setMessage(String message) {
@@ -60,6 +59,7 @@ public class CloudDatabaseJsonResponse implements CloudConnectResponse {
     }
 
     /**
+     * Gets the list of match clusters.
      * @return The list of match clusters
      */
     public List<List<MatchCluster>> getMatchClusters() {
@@ -67,12 +67,16 @@ public class CloudDatabaseJsonResponse implements CloudConnectResponse {
     }
 
     /**
+     * Sets the list of match clusters.
      * @param matchClusters The list of match clusters
      */
     public void setMatchClusters(List<List<MatchCluster>> matchClusters) {
         this.matchClusters = matchClusters;
     }
 
+    /**
+     * @return The string representation of the response
+     */
     @Override
     public String toString() {
         return "CloudDatabaseJsonResponse{" +
@@ -87,26 +91,23 @@ public class CloudDatabaseJsonResponse implements CloudConnectResponse {
      */
     @JsonClass(generateAdapter = false)
     public static class MatchCluster {
-
-        /**
-         * The original source data column
-         */
         @Json(name = "Data")
         private String data;
 
-        /**
-         * The reference data column
-         */
         @Json(name = "Reference")
         private String reference;
 
-        /**
-         * The similarity key
-         */
         @Json(name = "SimKey")
         private String simKey;
 
         /**
+         * Default constructor for the {@link MatchCluster} class.
+         */
+        public MatchCluster() {
+        }
+
+        /**
+         * Gets the original source data column.
          * @return The original source data column
          */
         public String getData() {
@@ -114,6 +115,7 @@ public class CloudDatabaseJsonResponse implements CloudConnectResponse {
         }
 
         /**
+         * Sets the original source data column.
          * @param data The original source data column
          */
         public void setData(String data) {
@@ -121,6 +123,7 @@ public class CloudDatabaseJsonResponse implements CloudConnectResponse {
         }
 
         /**
+         * Gets the reference data column.
          * @return The reference data column
          */
         public String getReference() {
@@ -128,6 +131,7 @@ public class CloudDatabaseJsonResponse implements CloudConnectResponse {
         }
 
         /**
+         * Sets the reference data column.
          * @param reference The reference data column
          */
         public void setReference(String reference) {
@@ -135,6 +139,7 @@ public class CloudDatabaseJsonResponse implements CloudConnectResponse {
         }
 
         /**
+         * Gets the similarity key.
          * @return The similarity key
          */
         public String getSimKey() {
@@ -142,6 +147,7 @@ public class CloudDatabaseJsonResponse implements CloudConnectResponse {
         }
 
         /**
+         * Sets the similarity key.
          * @param simKey The similarity key
          */
         public void setSimKey(String simKey) {

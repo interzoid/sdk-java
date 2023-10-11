@@ -4,8 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 /**
- * @author Interzoid
- * @version 1.1
+ * 
  * Represents a request for generating an address match key, used for comparing and sorting address data.
  * This class is used to specify the address, match algorithm, and API key required for the request.
  * @see MatchAlgorithm

@@ -3,8 +3,6 @@ package com.interzoid.sdk.model;
 import jakarta.validation.constraints.NotBlank;
 
 /**
- * @author Interzoid
- * @version 1.1
  * Represents a request for calculating the match score between two full names.
  * This class is used to specify the two full names and the API key required for the request.
  * @see InterzoidRequest
@@ -31,6 +29,7 @@ public class FullNameMatchScoreRequest extends InterzoidRequest {
     }
 
     /**
+     * Gets the first full name.
      * @return The first full name.
      */
     public String getValue1() {
@@ -38,6 +37,7 @@ public class FullNameMatchScoreRequest extends InterzoidRequest {
     }
 
     /**
+     * Gets the second full name.
      * @return The second full name.
      */
     public String getValue2() {

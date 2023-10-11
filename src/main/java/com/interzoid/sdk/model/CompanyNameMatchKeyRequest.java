@@ -4,10 +4,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 /**
- * @author Interzoid
- * @version 1.1
  * Represents a request for generating a company name match key, used for comparing and sorting company names.
  * This class is used to specify the company name, match algorithm, and API key required for the request.
+ * @see InterzoidRequest
+ * @see MatchAlgorithm
  */
 public class CompanyNameMatchKeyRequest extends InterzoidRequest {
 
@@ -32,6 +32,7 @@ public class CompanyNameMatchKeyRequest extends InterzoidRequest {
     }
 
     /**
+     * Gets the company name.
      * @return The company name.
      */
     public String getCompanyName() {
@@ -39,7 +40,9 @@ public class CompanyNameMatchKeyRequest extends InterzoidRequest {
     }
 
     /**
+     * Gets the match algorithm.
      * @return The match algorithm.
+     * @see MatchAlgorithm
      */
     public MatchAlgorithm getMatchAlgorithm() {
         return matchAlgorithm;
@@ -69,8 +72,7 @@ public class CompanyNameMatchKeyRequest extends InterzoidRequest {
         private final String value;
 
         /**
-         * Constructs a MatchAlgorithm enum value with the specified string value.
-         *
+         * Constructs a new MatchAlgorithm with the specified string value.
          * @param value The string value of the match algorithm.
          */
         MatchAlgorithm(String value) {
@@ -78,6 +80,7 @@ public class CompanyNameMatchKeyRequest extends InterzoidRequest {
         }
 
         /**
+         * Gets the match algorithm value.
          * @return The match algorithm value.
          */
         public String getValue() {

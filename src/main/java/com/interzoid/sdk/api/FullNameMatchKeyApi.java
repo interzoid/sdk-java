@@ -1,5 +1,7 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.InterzoidApiException;
+import com.interzoid.sdk.api.exceptions.ValidationException;
 import com.interzoid.sdk.model.FullNameMatchKeyRequest;
 import com.interzoid.sdk.model.MatchKeyResponse;
 import com.squareup.moshi.JsonAdapter;
@@ -16,10 +18,8 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author Interzoid
- * @version 1.1
- * @see <a href="https://www.interzoid.com/apis/individual-name-matching">Get Full Name Match Similarity Key API</a>
- *
+ * 
+
  * <h2>Get Full Name Match Similarity Key API</h2>
  *
  * <p>This API provides a hashed similarity key from the input data used to match with other similar full name data. Use the generated similarity key, rather than the actual data itself, to match and/or sort individual name data by similarity. This avoids the problems of data inconsistency, misspellings, and name variations when matching within a single dataset, and can also help matching across datasets or for more advanced searching.</p>
@@ -68,6 +68,10 @@ import java.util.concurrent.TimeUnit;
  *   }
  * }
  * }</pre>
+ * @see <a href="https://www.interzoid.com/apis/individual-name-matching">Get Full Name Match Similarity Key API</a>
+ * @see FullNameMatchKeyRequest
+ * @see MatchKeyResponse
+ * @version 1.0
  */
 
 public final class FullNameMatchKeyApi {

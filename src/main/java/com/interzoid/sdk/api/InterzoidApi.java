@@ -1,17 +1,17 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.ClientErrorException;
+import com.interzoid.sdk.api.exceptions.InterzoidApiException;
+import com.interzoid.sdk.api.exceptions.ServerErrorException;
+import com.interzoid.sdk.api.exceptions.UnexpectedResponseException;
 import okhttp3.*;
 
 import java.io.IOException;
 import java.util.Map;
 
 /**
- * @author Interzoid, Inc
- * @version 1.1
- *
- * InterzoidApi is a wrapper around OkHttp client to make requests to Interzoid APIs.
- * This class is not intended to be used directly. Instead, use the more specific APIs in the @link{com.interzoid.sdk.api} package.
- *
+ * <p>InterzoidApi is a wrapper around OkHttp client to make requests to Interzoid APIs.</p>
+ * <p>This class is not intended to be used directly. Instead, use the more specific APIs in the @link{com.interzoid.sdk.api} package.</p>
  */
 public final class InterzoidApi {
     private static final String API_BASE_URL = "https://api.interzoid.com/";
@@ -21,6 +21,7 @@ public final class InterzoidApi {
 
     /**
      * Constructs a new InterzoidApi with the specified OkHttpClient.
+     *
      * @param client The OkHttpClient to use.
      */
     InterzoidApi(OkHttpClient client) {
@@ -52,7 +53,7 @@ public final class InterzoidApi {
     }
 
     /**
-     * Makes a GET request to the specified resource with the given parameters.
+     * Makes a request to the Interzoid Cloud Data Connect API with the given parameters.
      *
      * @param params the parameters to be sent with the request
      * @return String (JSON or Plain Text)
@@ -70,6 +71,13 @@ public final class InterzoidApi {
         return get(request);
     }
 
+    /**
+     * Makes a GET request using the OkHttpClient
+     *
+     * @param request
+     * @return String (request body)
+     * @throws IOException if an error occurs while making the request
+     */
     private String get(Request request) throws IOException {
         try (Response response = client.newCall(request).execute()) {
             ResponseBody responseBody = response.body();

@@ -4,18 +4,25 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 /**
- * @author Interzoid
- * @version 1.1
+ * 
  * Validates the CreateTableRequest object
+ *
  * @see CloudWorkloadRequest
+ * @see ValidCloudWorkloadRequest
  */
 public class CloudWorkloadRequestValidator implements ConstraintValidator<ValidCloudWorkloadRequest, CloudWorkloadRequest> {
 
     /**
+     * Default constructor for the {@link CloudWorkloadRequestValidator} class.
+     */
+    public CloudWorkloadRequestValidator() {
+    }
+
+    /**
      * Checks if the request is valid
+     *
      * @param request object to validate
      * @param context context in which the constraint is evaluated
-     *
      * @return true if the request is valid, false otherwise
      */
     @Override

@@ -1,5 +1,6 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.ValidationException;
 import com.interzoid.sdk.model.MatchScoreResponse;
 import com.interzoid.sdk.model.OrganizationMatchScoreRequest;
 import jakarta.validation.ConstraintViolation;

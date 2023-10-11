@@ -1,5 +1,6 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.InterzoidApiException;
 import com.interzoid.sdk.model.*;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -9,22 +10,18 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import okhttp3.OkHttpClient;
 
+import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author Interzoid
- * @version 1.1
- * @see <a href="https://connect.interzoid.com/csv-file-processing">CSV File Processing for Data Analysis and Enhancement</a>
- * @see TextFileMatchRequest
- * @see CloudDatabaseJsonResponse
- * @see CloudDatabaseStringResponse
- *
  * <h2>CSV/TSV file Data Matching Workload API</h2>
  * <p>
  * This class provides the functionality for making requests to the Interzoid Data Matching APIs using CSV or TSV files as input.
+ * </p>
  *
  * <h3>Example</h3>
+ *
  * <pre>{@code
  * import com.interzoid.sdk.api.TextFileMatchKeyReportApi;
  * import com.interzoid.sdk.model.TextFileMatchRequest;
@@ -45,6 +42,13 @@ import java.util.concurrent.TimeUnit;
  *   }
  * }
  * }</pre>
+ *
+ *
+ * @see <a href="https://connect.interzoid.com/csv-file-processing">CSV File Processing for Data Analysis and Enhancement</a>
+ * @see TextFileMatchRequest
+ * @see CloudDatabaseJsonResponse
+ * @see CloudDatabaseStringResponse
+ * @version 1.0
  */
 public final class TextFileMatchKeyReportApi {
     private final InterzoidApi interzoidApi;
@@ -118,7 +122,14 @@ public final class TextFileMatchKeyReportApi {
         }
     }
 
-    public CloudConnectResponse doRequest(TextFileMatchRequest request) throws InterzoidApiException {
+    /**
+     * Makes a request to the Interzoid Text File Match Key Report API.
+     *
+     * @param request the {@link TextFileMatchRequest} instance containing the request parameters
+     * @return a {@link CloudConnectResponse} instance containing the response data
+     * @throws IOException if an error occurs while making the request
+     */
+    public CloudConnectResponse doRequest(TextFileMatchRequest request) throws IOException {
         Set<ConstraintViolation<TextFileMatchRequest>> violations = validator.validate(request);
         if (!violations.isEmpty()) {
             throw new InterzoidApiException(violations.toString());
@@ -137,5 +148,4 @@ public final class TextFileMatchKeyReportApi {
             throw new RuntimeException(e);
         }
     }
-
 }

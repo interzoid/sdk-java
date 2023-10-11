@@ -1,5 +1,7 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.InterzoidApiException;
+import com.interzoid.sdk.api.exceptions.ValidationException;
 import com.interzoid.sdk.model.FullNameMatchScoreRequest;
 import com.interzoid.sdk.model.MatchScoreResponse;
 import com.squareup.moshi.JsonAdapter;
@@ -16,9 +18,6 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author Interzoid
- * @version 1.1
- * @see <a href="https://www.interzoid.com/apis/individual-match-score">Full Name Match Score Compare API</a>
  * <h2>Full Name Match Score Compare API</h2>
  *
  * <p>This API provides a match score (likelihood of matching) between two individual names on a scale of 0-100, where 100 is the highest possible match.</p>
@@ -67,7 +66,10 @@ import java.util.concurrent.TimeUnit;
  *   }
  * }
  * }</pre>
- *
+ * @see <a href="https://www.interzoid.com/apis/individual-match-score">Full Name Match Score Compare API</a>
+ * @see FullNameMatchScoreRequest
+ * @see MatchScoreResponse
+ * @version 1.0
  */
 
 public final class FullNameMatchScoreApi {

@@ -1,7 +1,8 @@
 package com.interzoid.sdk.model;
 
 /**
- * The process to be performed.
+ * 
+ * The matching process to be executed.
  */
 public enum Process {
     /**
@@ -19,13 +20,13 @@ public enum Process {
     /**
      * Create a new table in the source database with the similarity keys and source values
      */
-    CREATE_TABLE("createtable")
-    ;
+    CREATE_TABLE("createtable");
 
-    private String value;
+    private final String value;
 
     /**
      * Constructor
+     *
      * @param value The value
      */
     Process(String value) {
@@ -34,6 +35,7 @@ public enum Process {
 
     /**
      * Gets the value
+     *
      * @return the value
      */
     public String getValue() {

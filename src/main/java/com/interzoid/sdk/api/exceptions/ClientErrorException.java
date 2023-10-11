@@ -1,11 +1,11 @@
-package com.interzoid.sdk.api;
+package com.interzoid.sdk.api.exceptions;
 
 /**
+ * 
  * Exception thrown when the API returns a 4xx error code, indicating client-side errors.
  * This class extends {@link InterzoidApiException} to provide more specific error handling
  * for client errors encountered when interacting with the API.
- *
- * @see InterzoidApiException
+ * @version 1.0
  */
 public class ClientErrorException extends InterzoidApiException {
     /**
