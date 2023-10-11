@@ -28,11 +28,17 @@ test {
     useJUnitPlatform()
 }
 
+tasks.register('cleanDocs', Delete) {
+    delete 'docs'
+}
+
 javadoc {
     title = "Interzoid Data Matching SDK"
     source = sourceSets.main.allJava
-    destinationDir = file("$DEFAULT_BUILD_DIR_NAME/docs/javadoc")
-    options.overview = file("$projectDir/src/main/java/overview.html")
+    options.overview = file("src/overview.html")
+    destinationDir = file("docs/javadoc")
+    exclude 'com/interzoid/sdk/api/InterzoidApi.java'
+    dependsOn cleanDocs
 }
 
 publishing {
