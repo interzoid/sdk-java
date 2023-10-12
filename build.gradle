@@ -1,13 +1,14 @@
 plugins {
     id 'java'
     id 'maven-publish'
+    id 'signing'
 }
-
-group 'com.interzoid'
-version '1.0-SNAPSHOT'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    withJavadocJar()
+    withSourcesJar()
 }
 
 repositories {
@@ -36,20 +37,60 @@ javadoc {
     title = "Interzoid Data Matching SDK"
     source = sourceSets.main.allJava
     options.overview = file("src/overview.html")
+    options.addBooleanOption('html5', true)
     destinationDir = file("docs/javadoc")
     exclude 'com/interzoid/sdk/api/InterzoidApi.java'
     dependsOn cleanDocs
 }
 
+group 'com.interzoid'
+version '0.1.0-SNAPSHOT'
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            from components.java
-
-            groupId = 'com.interzoid'
             artifactId = 'data-matching-sdk'
-            version = '1.0-SNAPSHOT'
+            from components.java
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name = 'Interzoid Data Matching SDK'
+                description = 'Java SDK for the Interzoid Data Matching API'
+                url = 'https://www.interzoid.com/services/data-matching-api'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://opensource.org/licenses/MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'interzoid'
+                        name = 'Interzoid'
+                        email = 'support@interzoid.com'
+                    }
+                }
+            }
+
+            repositories {
+                maven {
+                    name = 'myRepo'
+                    url = layout.buildDirectory.dir("repo")
+                    def releasesRepoUrl = layout.buildDirectory.dir('repo/releases')
+                    def snapshotsRepoUrl = layout.buildDirectory.dir('repo/snapshots')
+                    url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                }
+            }
         }
     }
 }
-targetCompatibility = JavaVersion.VERSION_11
+
+signing {
+    sign publishing.publications.mavenJava
+}
