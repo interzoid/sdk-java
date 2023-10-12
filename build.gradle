@@ -4,17 +4,6 @@ plugins {
     id 'signing'
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-    withJavadocJar()
-    withSourcesJar()
-}
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.11.0'
     implementation 'com.squareup.moshi:moshi:1.15.0'
@@ -29,18 +18,15 @@ test {
     useJUnitPlatform()
 }
 
-tasks.register('cleanDocs', Delete) {
-    delete 'docs'
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    withJavadocJar()
+    withSourcesJar()
 }
 
-javadoc {
-    title = "Interzoid Data Matching SDK"
-    source = sourceSets.main.allJava
-    options.overview = file("src/overview.html")
-    options.addBooleanOption('html5', true)
-    destinationDir = file("docs/javadoc")
-    exclude 'com/interzoid/sdk/api/InterzoidApi.java'
-    dependsOn cleanDocs
+repositories {
+    mavenCentral()
 }
 
 group 'com.interzoid'
@@ -98,4 +84,18 @@ publishing {
 
 signing {
     sign publishing.publications.mavenJava
+}
+
+tasks.register('cleanDocs', Delete) {
+    delete 'docs'
+}
+
+javadoc {
+    title = "Interzoid Data Matching SDK"
+    source = sourceSets.main.allJava
+    options.overview = file("src/overview.html")
+    options.addBooleanOption('html5', true)
+    destinationDir = file("docs/javadoc")
+    exclude 'com/interzoid/sdk/api/InterzoidApi.java'
+    dependsOn cleanDocs
 }
