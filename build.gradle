@@ -76,6 +76,11 @@ publishing {
                         email = 'support@interzoid.com'
                     }
                 }
+                scm {
+                    connection = 'https://github.com/interzoid/sdk-java.git'
+                    developerConnection = 'scm:git:git@github.com:interzoid/sdk-java.git'
+                    url = 'https://github.com/interzoid/sdk-java'
+                }
             }
 
             repositories {
