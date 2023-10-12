@@ -1,5 +1,7 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.InterzoidApiException;
+import com.interzoid.sdk.api.exceptions.ValidationException;
 import com.interzoid.sdk.model.CompanyNameMatchKeyRequest;
 import com.interzoid.sdk.model.MatchKeyResponse;
 import com.squareup.moshi.JsonAdapter;
@@ -10,15 +12,15 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import okhttp3.OkHttpClient;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 
  * <h2>Get Company Match Similarity Key API</h2>
- *
- * <p>Copyright (C) 2023 Interzoid, Inc</p>
  *
  * <p>Company/Organization name data can be inconsistent, making redundant data difficult to track down or match (GE, Gen Electric, G.E., etc.). This API provides a hashed similarity key from the input data used to match with other similar company name data. Use the generated similarity key, rather than the actual data itself, to match and/or sort company name data to identify inconsistently represented company and organization name data. This avoids the problems of data inconsistency, misspellings, and name variations when matching within a single dataset or across multiple data sources.</p>
  *
@@ -32,34 +34,44 @@ import java.util.concurrent.TimeUnit;
  * <pre>{@code
  * import com.interzoid.sdk.api.CompanyNameMatchKeyApi;
  * import com.interzoid.sdk.model.CompanyNameMatchKeyRequest;
- * import com.interzoid.sdk.model.CompanyNameMatchKeyResponse;
+ * import com.interzoid.sdk.model.MatchKeyResponse;
  *
- * CompanyNameMatchKeyApi api = new CompanyNameMatchKeyApi.Builder().build();
+ * public class CompanyNameMatchKeyTest {
+ *   public static void main(String[] args) throws Exception {
+ *     CompanyNameMatchKeyApi api = new CompanyNameMatchKeyApi.Builder().build();
+ *     CompanyNameMatchKeyRequest request = new CompanyNameMatchKeyRequest(
+ *       "YOUR-API-KEY", // apiKey
+ *       "Apple"         // company
+ *     );
  *
- * CompanyNameMatchKeyRequest request = new CompanyNameMatchKeyRequest(
- *     "YOUR-API-KEY", // apiKey
- *     "Apple"         // company
- * );
- *
- * CompanyNameMatchKeyResponse response = api.doRequest(request);
+ *     MatchKeyResponse response = api.doRequest(request);
+ *   }
+ * }
  * }</pre>
  *
  * <h3>With Custom OkHttpClient</h3>
  * <pre>{@code
  * import com.interzoid.sdk.api.CompanyNameMatchKeyApi;
  * import okhttp3.OkHttpClient;
+ * import java.util.concurrent.TimeUnit;
  *
- * OkHttpClient okHttpClient = new OkHttpClient.Builder()
- *     .connectTimeout(10, TimeUnit.SECONDS)
- *     // other configuration
- *     .build();
- * CompanyNameMatchKeyApi api = new CompanyNameMatchKeyApi.Builder().withClient(okHttpClient).build();
- *
- * // usage of api is the same as above
+ * public class CompanyNameMatchKeyTest {
+ *   public static void main(String[] args) throws Exception {
+ *     OkHttpClient okHttpClient = new OkHttpClient.Builder()
+ *       .connectTimeout(10, TimeUnit.SECONDS)
+ *       // other configuration
+ *       .build();
+ *     CompanyNameMatchKeyApi api = new CompanyNameMatchKeyApi.Builder()
+ *       .withClient(okHttpClient)
+ *       .build();
+ *     // usage of api is the same as above
+ *   }
+ * }
  * }</pre>
- *
- * @version 1.0
  * @see <a href="https://www.interzoid.com/apis/company-name-matching">Get Company Match Similarity Key API</a>
+ * @see CompanyNameMatchKeyRequest
+ * @see MatchKeyResponse
+ * @version 1.0
  */
 
 public final class CompanyNameMatchKeyApi {
@@ -144,12 +156,12 @@ public final class CompanyNameMatchKeyApi {
      * @param request the request object containing the necessary details, including the API key, to fetch the similarity key
      * @return a representation of the matching information as an {@code MatchKeyResponse} object
      * @throws ValidationException if the request is invalid
-     * @throws Exception           if the request fails
+     * @throws IOException         if the API request fails for any reason
      * @see CompanyNameMatchKeyRequest
      * @see MatchKeyResponse
      * @see InterzoidApiException
      */
-    public MatchKeyResponse doRequest(CompanyNameMatchKeyRequest request) throws Exception {
+    public MatchKeyResponse doRequest(CompanyNameMatchKeyRequest request) throws IOException {
         // Validate request object
         Set<ConstraintViolation<CompanyNameMatchKeyRequest>> violations = validator.validate(request);
         if (!violations.isEmpty()) {
@@ -166,11 +178,7 @@ public final class CompanyNameMatchKeyApi {
         params.put("algorithm", request.getMatchAlgorithm().getValue());
 
         // Make request
-        try {
-            String response = interzoidApi.doGetRequest(request.getApikey(), RESOURCE, params);
-            return jsonAdapter.fromJson(response);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        String response = interzoidApi.doApiGetRequest(request.getApikey(), RESOURCE, params);
+        return jsonAdapter.fromJson(response);
     }
 }

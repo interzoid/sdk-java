@@ -1,6 +1,5 @@
 package com.interzoid.sdk.model;
 
-import com.interzoid.sdk.api.FullNameMatchScoreApi;
 import com.squareup.moshi.Json;
 
 /**
@@ -14,21 +13,14 @@ public class InterzoidResponse {
     public InterzoidResponse() {
     }
 
-    /**
-     * The response code returned by the Interzoid API.
-     */
     @Json(name = "Code")
     private String code;
 
-    /**
-     * The number of credits available after making the API request.
-     */
     @Json(name = "Credits")
     private String credits;
 
     /**
-     * Gets the response code returned by the Interzoid API.
-     *
+     * Gets the response code.
      * @return The response code.
      */
     public String getCode() {
@@ -37,7 +29,6 @@ public class InterzoidResponse {
 
     /**
      * Sets the response code.
-     *
      * @param code The response code to set.
      */
     public void setCode(String code) {
@@ -45,8 +36,7 @@ public class InterzoidResponse {
     }
 
     /**
-     * Gets the number of credits available after making the API request.
-     *
+     * Gets the available credits.
      * @return The available credits.
      */
     public String getCredits() {
@@ -55,18 +45,12 @@ public class InterzoidResponse {
 
     /**
      * Sets the available credits.
-     *
      * @param credits The available credits to set.
      */
     public void setCredits(String credits) {
         this.credits = credits;
     }
 
-    /**
-     * Returns a string representation of the InterzoidResponse object.
-     *
-     * @return A string containing the response code and available credits.
-     */
     @Override
     public String toString() {
         return "InterzoidResponse{" +

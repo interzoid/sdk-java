@@ -1,5 +1,6 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.ValidationException;
 import com.interzoid.sdk.model.CompanyNameMatchKeyRequest;
 import com.interzoid.sdk.model.MatchKeyResponse;
 import jakarta.validation.ConstraintViolation;
@@ -34,7 +35,7 @@ public class CompanyNameMatchKeyApiTest {
         CompanyNameMatchKeyRequest.MatchAlgorithm matchAlgorithm = CompanyNameMatchKeyRequest.MatchAlgorithm.WIDE;
 
         String jsonResponse = "{\"SimKey\": \"12345\", \"Code\": \"Success\", \"Credits\": \"9999\"}";
-        when(interzoidApiMock.doGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
+        when(interzoidApiMock.doApiGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
 
         CompanyNameMatchKeyRequest request = new CompanyNameMatchKeyRequest(apiKey, company, matchAlgorithm);
 

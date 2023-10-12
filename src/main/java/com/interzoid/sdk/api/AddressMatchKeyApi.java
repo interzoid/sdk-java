@@ -1,5 +1,7 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.InterzoidApiException;
+import com.interzoid.sdk.api.exceptions.ValidationException;
 import com.interzoid.sdk.model.AddressMatchKeyRequest;
 import com.interzoid.sdk.model.MatchKeyResponse;
 import com.squareup.moshi.JsonAdapter;
@@ -10,6 +12,7 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import okhttp3.OkHttpClient;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -17,8 +20,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * <h2>Get Address Match Similarity Key API</h2>
- *
- * <p>Copyright (C) 2023 Interzoid, Inc</p>
  *
  * <p>This API provides a hashed similarity key from the input data used to match with other similar address data. Use the generated similarity key, rather than the actual data itself, to match and/or sort address data by similarity. This avoids the problems of data inconsistency, misspellings, and address element variations when matching either within a single dataset or across datasets. It also provides for broader searching capabilities.</p>
  *
@@ -32,16 +33,19 @@ import java.util.concurrent.TimeUnit;
  * <pre>{@code
  * import com.interzoid.sdk.api.AddressMatchKeyApi;
  * import com.interzoid.sdk.model.AddressMatchKeyRequest;
- * import com.interzoid.sdk.model.AddressMatchKeyResponse;
+ * import com.interzoid.sdk.model.MatchKeyResponse;
  *
- * AddressMatchKeyApi api = new AddressMatchKeyApi.Builder().build();
+ * public class AddressMatchKeyTest {
+ *   public static void main(String[] args) throws Exception {
+ *     AddressMatchKeyApi api = new AddressMatchKeyApi.Builder().build();
  *
- * AddressMatchKeyRequest request = new AddressMatchKeyRequest(
- *     "YOUR-API-KEY",      // apiKey
- *     "123 Main Street"     // address
- * );
- *
- * AddressMatchKeyResponse response = api.doRequest(request);
+ *     AddressMatchKeyRequest request = new AddressMatchKeyRequest(
+ *       "YOUR-API-KEY",       // apiKey
+ *       "123 Main Street"     // address
+ *     );
+ *     MatchKeyResponse response = api.doRequest(request);
+ *   }
+ * }
  * }</pre>
  *
  * <h3>With Custom OkHttpClient</h3>
@@ -51,19 +55,24 @@ import java.util.concurrent.TimeUnit;
  * import okhttp3.OkHttpClient;
  * import java.util.concurrent.TimeUnit;
  *
- * OkHttpClient okHttpClient = new OkHttpClient.Builder()
- *     .connectTimeout(10, TimeUnit.SECONDS)
- *     // other configuration
- *     .build();
- * AddressMatchKeyApi api = new AddressMatchKeyApi.Builder().withClient(okHttpClient).build();
- *
- * // usage of api is the same as above
+ * public class AddressMatchKeyTest {
+ *   public static void main(String[] args) throws Exception {
+ *     OkHttpClient okHttpClient = new OkHttpClient.Builder()
+ *       .connectTimeout(10, TimeUnit.SECONDS)
+ *       // other configuration
+ *       .build();
+ *     AddressMatchKeyApi api = new AddressMatchKeyApi.Builder()
+ *       .withClient(okHttpClient)
+ *       .build();
+ *     // usage of api is the same as above
+ *   }
+ * }
  * }</pre>
- *
- * @version 1.0
  * @see <a href="https://www.interzoid.com/apis/street-address-matching">Get Address Match Similarity Key API</a>
+ * @see AddressMatchKeyRequest
+ * @see MatchKeyResponse
+ * @version 1.0
  */
-
 public final class AddressMatchKeyApi {
     private static final String RESOURCE = "getaddressmatchadvanced";
     private final InterzoidApi interzoidApi;
@@ -143,15 +152,15 @@ public final class AddressMatchKeyApi {
     /**
      * Sends a request to the API to obtain a similarity key based on the provided address.
      *
-     * @param request AddressMatchKeyRequest
-     * @return AddressMatchKeyResponse
-     * @throws Exception           if the request fails
-     * @throws ValidationException if the request is invalid
+     * @param request the {@link AddressMatchKeyRequest} containing the address and matching algorithm preference
+     * @return the {@link MatchKeyResponse} containing the similarity key and other related information
+     * @throws ValidationException   if the request is invalid, for instance, if any required field is missing or malformed
+     * @throws InterzoidApiException if there is an error during the API request, like network issues or server errors
      * @see AddressMatchKeyRequest
      * @see MatchKeyResponse
      * @see InterzoidApiException
      */
-    public MatchKeyResponse doRequest(AddressMatchKeyRequest request) throws Exception {
+    public MatchKeyResponse doRequest(AddressMatchKeyRequest request) throws IOException {
         Set<ConstraintViolation<AddressMatchKeyRequest>> violations = validator.validate(request);
         if (!violations.isEmpty()) {
             throw new ValidationException("Validation failed", violations);
@@ -164,7 +173,7 @@ public final class AddressMatchKeyApi {
         params.put("address", request.getAddress());
         params.put("algorithm", request.getMatchAlgorithm().getValue());
 
-        String response = interzoidApi.doGetRequest(request.getApikey(), RESOURCE, params);
+        String response = interzoidApi.doApiGetRequest(request.getApikey(), RESOURCE, params);
         return jsonAdapter.fromJson(response);
     }
 }

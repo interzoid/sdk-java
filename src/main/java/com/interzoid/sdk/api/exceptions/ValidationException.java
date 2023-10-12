@@ -1,4 +1,4 @@
-package com.interzoid.sdk.api;
+package com.interzoid.sdk.api.exceptions;
 
 import jakarta.validation.ConstraintViolation;
 
@@ -15,7 +15,8 @@ public class ValidationException extends RuntimeException {
 
     /**
      * Constructs a new ValidationException with the specified message and set of violations.
-     * @param message The message to set.
+     *
+     * @param message    The message to set.
      * @param violations The set of violations to set.
      */
     public ValidationException(String message, Set<? extends ConstraintViolation<?>> violations) {
@@ -25,6 +26,7 @@ public class ValidationException extends RuntimeException {
 
     /**
      * Gets the set of violations.
+     *
      * @return The set of violations.
      */
     public Set<? extends ConstraintViolation<?>> getViolations() {

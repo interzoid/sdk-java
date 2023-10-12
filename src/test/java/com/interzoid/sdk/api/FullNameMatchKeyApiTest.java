@@ -1,5 +1,6 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.ValidationException;
 import com.interzoid.sdk.model.FullNameMatchKeyRequest;
 import com.interzoid.sdk.model.MatchKeyResponse;
 import jakarta.validation.ConstraintViolation;
@@ -32,7 +33,7 @@ public class FullNameMatchKeyApiTest {
         String fullName = "John Doe";
 
         String jsonResponse = "{\"SimKey\": \"12345\", \"Code\": \"Success\", \"Credits\": \"9999\"}";
-        when(interzoidApiMock.doGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
+        when(interzoidApiMock.doApiGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
 
         FullNameMatchKeyRequest request = new FullNameMatchKeyRequest(apiKey, fullName);
 

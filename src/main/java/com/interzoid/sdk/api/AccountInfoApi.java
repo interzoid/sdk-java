@@ -1,5 +1,7 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.InterzoidApiException;
+import com.interzoid.sdk.api.exceptions.ValidationException;
 import com.interzoid.sdk.model.InterzoidRequest;
 import com.interzoid.sdk.model.InterzoidResponse;
 import com.squareup.moshi.JsonAdapter;
@@ -10,48 +12,20 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import okhttp3.OkHttpClient;
 
+import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 
  * <h2>Account Info (Credits Remaining) API</h2>
- *
- * <p>Copyright (C) 2023 Interzoid, Inc.</p>
- *
- * <p>AccountInfoApi is a client for the Interzoid Get Remaining Credits API.</p>
- *
- * <p>APIs should be reused instead of creating new instances per request. This will give you the best performance.</p>
- *
- * <h3>Example</h3>
- * <pre>{@code
- * import com.interzoid.sdk.api.AccountInfoApi;
- * import com.interzoid.sdk.model.AccountInfoRequest;
- * import com.interzoid.sdk.model.AccountInfoResponse;
- *
- * AccountInfoApi api = new AccountInfoApi.Builder().build();
- *
- * AccountInfoRequest request = AccountInfoRequest.create("YOUR-API-KEY");
- * AccountInfoResponse response = api.getAccountInfo(request);
- * }</pre>
- *
- * <h3>With Custom OkHttpClient</h3>
- * <pre>{@code
- * import com.interzoid.sdk.api.AccountInfoApi;
- * import okhttp3.OkHttpClient;
- * import java.util.concurrent.TimeUnit;
- *
- * OkHttpClient okHttpClient = new OkHttpClient.Builder()
- *      .connectTimeout(10, TimeUnit.SECONDS)
- *      // other configuration
- *      .build();
- * AccountInfoApi api = new AccountInfoApi.Builder().withClient(okHttpClient).build();
- *
- * // usage of api is the same as above
- * }</pre>
- *
- * @author Interzoid, Inc
- * @version 1.0
+ * <p>
+ * AccountInfoApi is a client for the Interzoid Get Remaining Credits API.
+ * <p>
+ * APIs should be reused instead of creating new instances per request. This will give you the best performance.
  * @see <a href="https://www.interzoid.com/apis/remaining-api-credits">Credits Remaining API</a>
+ * @see InterzoidRequest
+ * @version 1.0
  */
 
 
@@ -138,12 +112,12 @@ public final class AccountInfoApi {
      * @param request the request object containing the necessary details, including the API key, to fetch the account information
      * @return a representation of the account information as an {@code AccountInfoResponse} object
      * @throws ValidationException if the request is invalid
-     * @throws Exception           if the request fails
+     * @throws IOException         if the request fails
      * @see InterzoidRequest
      * @see InterzoidResponse
      * @see InterzoidApiException
      */
-    public InterzoidResponse doRequest(InterzoidRequest request) throws Exception {
+    public InterzoidResponse doRequest(InterzoidRequest request) throws IOException {
         Set<ConstraintViolation<InterzoidRequest>> violations = validator.validate(request);
         if (!violations.isEmpty()) {
             throw new ValidationException("Validation failed", violations);
@@ -152,7 +126,7 @@ public final class AccountInfoApi {
         Moshi moshi = new Moshi.Builder().build();
         JsonAdapter<InterzoidResponse> jsonAdapter = moshi.adapter(InterzoidResponse.class);
 
-        String response = interzoidApi.doGetRequest(request.getApikey(), RESOURCE, null);
+        String response = interzoidApi.doApiGetRequest(request.getApikey(), RESOURCE, null);
         return jsonAdapter.fromJson(response);
     }
 }

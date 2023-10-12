@@ -29,7 +29,7 @@ public class AccountInfoApiTest {
         String apiKey = "testApiKey";
 
         String jsonResponse = "{\"Code\": \"Success\", \"Credits\": \"9999\"}";
-        when(interzoidApiMock.doGetRequest(anyString(), anyString(), eq(null))).thenReturn(jsonResponse);
+        when(interzoidApiMock.doApiGetRequest(anyString(), anyString(), eq(null))).thenReturn(jsonResponse);
 
         InterzoidRequest request = new InterzoidRequest(apiKey);
 

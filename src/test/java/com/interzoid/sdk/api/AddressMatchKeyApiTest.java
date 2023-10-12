@@ -1,5 +1,6 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.ValidationException;
 import com.interzoid.sdk.model.AddressMatchKeyRequest;
 import com.interzoid.sdk.model.MatchKeyResponse;
 import jakarta.validation.ConstraintViolation;
@@ -33,7 +34,7 @@ public class AddressMatchKeyApiTest {
         AddressMatchKeyRequest.MatchAlgorithm matchAlgorithm = AddressMatchKeyRequest.MatchAlgorithm.WIDE;
 
         String jsonResponse = "{\"SimKey\": \"12345\", \"Code\": \"Success\", \"Credits\": \"9999\"}";
-        when(interzoidApiMock.doGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
+        when(interzoidApiMock.doApiGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
 
         AddressMatchKeyRequest request = new AddressMatchKeyRequest(apiKey, address, matchAlgorithm);
 

@@ -1,5 +1,6 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.ValidationException;
 import com.interzoid.sdk.model.MatchScoreResponse;
 import com.interzoid.sdk.model.OrganizationMatchScoreRequest;
 import jakarta.validation.ConstraintViolation;
@@ -33,7 +34,7 @@ public class OrganizationMatchScoreApiTest {
         String org2 = "Apple Inc.";
 
         String jsonResponse = "{\"Score\": \"89\", \"Code\": \"Success\", \"Credits\": \"9999\"}";
-        when(interzoidApiMock.doGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
+        when(interzoidApiMock.doApiGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
 
         OrganizationMatchScoreRequest request = new OrganizationMatchScoreRequest(apiKey, org1, org2);
 

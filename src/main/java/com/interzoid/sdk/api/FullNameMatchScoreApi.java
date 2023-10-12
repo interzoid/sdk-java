@@ -1,5 +1,7 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.InterzoidApiException;
+import com.interzoid.sdk.api.exceptions.ValidationException;
 import com.interzoid.sdk.model.FullNameMatchScoreRequest;
 import com.interzoid.sdk.model.MatchScoreResponse;
 import com.squareup.moshi.JsonAdapter;
@@ -18,8 +20,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * <h2>Full Name Match Score Compare API</h2>
  *
- * <p>Copyright (C) 2023 Interzoid, Inc</p>
- *
  * <p>This API provides a match score (likelihood of matching) between two individual names on a scale of 0-100, where 100 is the highest possible match.</p>
  *
  * <p>Heuristics, phonetics, specific knowledge bases, categorization hierarchies, contextual machine learning, and other various algorithms are used as the basis of scoring the match. These algorithms get smarter over time. As the context of the data is known, in this case individual person names, it performs far better than generic string comparison algorithms.</p>
@@ -32,17 +32,19 @@ import java.util.concurrent.TimeUnit;
  * <pre>{@code
  * import com.interzoid.sdk.api.FullNameMatchScoreApi;
  * import com.interzoid.sdk.model.FullNameMatchScoreRequest;
- * import com.interzoid.sdk.model.FullNameMatchScoreResponse;
+ * import com.interzoid.sdk.model.MatchScoreResponse;
  *
- * FullNameMatchScoreApi api = new FullNameMatchScoreApi.Builder().build();
- *
- * FullNameMatchScoreRequest request = new FullNameMatchScoreRequest(
- *     "YOUR-API-KEY", // apiKey
- *     "John Smith",   // full name 1
- *     "John Smyth"    // full name 2
- * );
- *
- * FullNameMatchScoreResponse response = api.doRequest(request);
+ * public class FullNameMatchScoreTest {
+ *   public static void main(String[] args) throws Exception {
+ *     FullNameMatchScoreApi api = new FullNameMatchScoreApi.Builder().build();
+ *     FullNameMatchScoreRequest request = new FullNameMatchScoreRequest(
+ *       "YOUR-API-KEY", // apiKey
+ *       "John Smith",   // full name 1
+ *       "John Smyth"    // full name 2
+ *     );
+ *     MatchScoreResponse response = api.doRequest(request);
+ *   }
+ * }
  * }</pre>
  *
  * <h3>With Custom OkHttpClient</h3>
@@ -51,17 +53,23 @@ import java.util.concurrent.TimeUnit;
  * import okhttp3.OkHttpClient;
  * import java.util.concurrent.TimeUnit;
  *
- * OkHttpClient okHttpClient = new OkHttpClient.Builder()
- *     .connectTimeout(10, TimeUnit.SECONDS)
- *     // other configuration
- *     .build();
- * FullNameMatchScoreApi api = new FullNameMatchScoreApi.Builder().withClient(okHttpClient).build();
- *
- * // usage of api is the same as above
+ * public class FullNameMatchScoreTest {
+ *   public static void main(String[] args) throws Exception {
+ *     OkHttpClient okHttpClient = new OkHttpClient.Builder()
+ *       .connectTimeout(10, TimeUnit.SECONDS)
+ *       // other configuration
+ *       .build();
+ *     FullNameMatchScoreApi api = new FullNameMatchScoreApi.Builder()
+ *       .withClient(okHttpClient)
+ *       .build();
+ *     // usage of api is the same as above
+ *   }
+ * }
  * }</pre>
- *
- * @version 1.0
  * @see <a href="https://www.interzoid.com/apis/individual-match-score">Full Name Match Score Compare API</a>
+ * @see FullNameMatchScoreRequest
+ * @see MatchScoreResponse
+ * @version 1.0
  */
 
 public final class FullNameMatchScoreApi {
@@ -168,7 +176,7 @@ public final class FullNameMatchScoreApi {
         params.put("fullname2", request.getValue2());
 
         // Make request
-        String response = interzoidApi.doGetRequest(request.getApikey(), RESOURCE, params);
+        String response = interzoidApi.doApiGetRequest(request.getApikey(), RESOURCE, params);
         return jsonAdapter.fromJson(response);
     }
 }

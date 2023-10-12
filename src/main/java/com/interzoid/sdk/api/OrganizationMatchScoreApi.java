@@ -1,5 +1,7 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.InterzoidApiException;
+import com.interzoid.sdk.api.exceptions.ValidationException;
 import com.interzoid.sdk.model.MatchScoreResponse;
 import com.interzoid.sdk.model.OrganizationMatchScoreRequest;
 import com.squareup.moshi.JsonAdapter;
@@ -10,12 +12,16 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import okhttp3.OkHttpClient;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * OrganizationMatchScoreApi provides a client for interacting with the Interzoid Organization Match Score API.
+ *
+ * @see <a href="https://www.interzoid.com/apis/organization-match-score">Organization Match Score API</a>
  * <h2>Organization Match Score API</h2>
  *
  * <p>Copyright (C) 2023 Interzoid, Inc</p>
@@ -32,16 +38,20 @@ import java.util.concurrent.TimeUnit;
  * <pre>{@code
  * import com.interzoid.sdk.api.OrganizationMatchScoreApi;
  * import com.interzoid.sdk.model.OrganizationMatchScoreRequest;
- * import com.interzoid.sdk.model.OrganizationMatchScoreResponse;
+ * import com.interzoid.sdk.model.MatchScoreResponse;
  *
- * OrganizationMatchScoreApi api = new OrganizationMatchScoreApi.Builder().build();
+ * public class OrganizationMatchScoreTest {
+ *   public static void main(String[] args) throws Exception {
+ *     OrganizationMatchScoreApi api = new OrganizationMatchScoreApi.Builder().build();
  *
- * OrganizationMatchScoreRequest request = new OrganizationMatchScoreRequest(
- * "YOUR-API-KEY",  // apiKey
- * "Apple",         // org 1
- * "Apple, Inc");   // org 2
+ *     OrganizationMatchScoreRequest request = new OrganizationMatchScoreRequest(
+ *       "YOUR-API-KEY",  // apiKey
+ *       "Apple",         // org 1
+ *       "Apple, Inc");   // org 2
  *
- * OrganizationMatchScoreResponse response = api.doRequest(request);
+ *     MatchScoreResponse response = api.doRequest(request);
+ *   }
+ * }
  * }</pre>
  *
  * <h3>With Custom OkHttpClient</h3>
@@ -50,16 +60,20 @@ import java.util.concurrent.TimeUnit;
  * import okhttp3.OkHttpClient;
  * import java.util.concurrent.TimeUnit;
  *
- * OkHttpClient okHttpClient = new OkHttpClient.Builder()
+ * public class OrganizationMatchScoreTest {
+ *   public static void main(String[] args) throws Exception {
+ *     OkHttpClient okHttpClient = new OkHttpClient.Builder()
  *      .connectTimeout(10, TimeUnit.SECONDS)
  *      // other configuration
  *      .build();
- * OrganizationMatchScoreApi api = new OrganizationMatchScoreApi.Builder().withClient(okHttpClient).build();
+ *     OrganizationMatchScoreApi api = new OrganizationMatchScoreApi.Builder()
+ *       .withClient(okHttpClient)
+ *       .build();
+ *     // usage of api is the same as above
+ *   }
+ * }
  * }</pre>
- *
- * @author Interzoid, Inc
- * @version 1.0
- * @see <a href="https://www.interzoid.com/apis/organization-match-score">Organization Match Score API</a>
+ * @see OrganizationMatchScoreRequest
  */
 
 public final class OrganizationMatchScoreApi {
@@ -144,12 +158,12 @@ public final class OrganizationMatchScoreApi {
      * @param request the request object containing the necessary details, including the API key, to fetch the match score
      * @return a representation of the matching information as an {@code MatchScoreResponse} object
      * @throws ValidationException if the request is invalid
-     * @throws Exception           if the request fails
+     * @throws IOException         if the request fails
      * @see OrganizationMatchScoreRequest
      * @see MatchScoreResponse
      * @see InterzoidApiException
      */
-    public MatchScoreResponse doRequest(OrganizationMatchScoreRequest request) throws Exception {
+    public MatchScoreResponse doRequest(OrganizationMatchScoreRequest request) throws IOException {
         // Validate request
         Set<ConstraintViolation<OrganizationMatchScoreRequest>> violations = validator.validate(request);
         if (!violations.isEmpty()) {
@@ -167,7 +181,7 @@ public final class OrganizationMatchScoreApi {
 
         // Make request
         try {
-            String response = interzoidApi.doGetRequest(request.getApikey(), RESOURCE, params);
+            String response = interzoidApi.doApiGetRequest(request.getApikey(), RESOURCE, params);
             return jsonAdapter.fromJson(response);
         } catch (Exception e) {
             throw new RuntimeException(e);

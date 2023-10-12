@@ -1,5 +1,6 @@
 package com.interzoid.sdk.api;
 
+import com.interzoid.sdk.api.exceptions.ValidationException;
 import com.interzoid.sdk.model.FullNameMatchScoreRequest;
 import com.interzoid.sdk.model.MatchScoreResponse;
 import jakarta.validation.ConstraintViolation;
@@ -34,7 +35,7 @@ public class FullNameMatchScoreApiTest {
         String fullName2 = "John Smyth";
 
         String jsonResponse = "{\"Score\": \"89\", \"Code\": \"Success\", \"Credits\": \"9999\"}";
-        when(interzoidApiMock.doGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
+        when(interzoidApiMock.doApiGetRequest(anyString(), anyString(), anyMap())).thenReturn(jsonResponse);
 
         FullNameMatchScoreRequest request = new FullNameMatchScoreRequest(apiKey, fullName1, fullName2);
 

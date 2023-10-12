@@ -35,7 +35,7 @@ public class InterzoidApiTest {
         when(headers.size()).thenReturn(0);
         when(responseBody.string()).thenReturn("OK");
 
-        String resp = interzoidApi.doGetRequest("apikey", "resource", null);
+        String resp = interzoidApi.doApiGetRequest("apikey", "resource", null);
 
         assertEquals("OK", resp);
     }
