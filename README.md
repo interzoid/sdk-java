@@ -27,7 +27,7 @@ The concept is that the same similarity key will be algorithmically generated fo
 
 ## API Key
 
-Please visit https://www.interzoid.com/register-api-account to register for an API key and receive free usage credits.
+Please visit https://www.interzoid.com/register-api-account to register for an API key and receive free usage credits. This API key will be used as a parameter with each call to the API (via the SDK function) for authentication and usage tracking.
 
 ## Requirements
 
