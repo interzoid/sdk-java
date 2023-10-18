@@ -38,7 +38,7 @@ Please visit https://www.interzoid.com/register-api-account to register for an A
 ### Gradle
 
 ```groovy
-implementation 'com.interzoid:data-matching-sdk:1.0-SNAPSHOT'
+implementation 'com.interzoid:data-matching-sdk:0.1.1'
 ```
 
 ### Maven
@@ -48,7 +48,7 @@ implementation 'com.interzoid:data-matching-sdk:1.0-SNAPSHOT'
     <dependency>
         <groupId>com.interzoid</groupId>
         <artifactId>data-matching-sdk</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.1.1</version>
     </dependency>
 </dependencies>
 ```
